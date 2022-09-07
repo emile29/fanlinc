@@ -1,0 +1,88 @@
+<div class='page-container'>
+	<div class='page-content-container'>
+		<div class='top-section-container'>
+			<img class='fandom-image' src='{{image}}'>
+			<div class='info-area-container'>
+				<div class='info-area-headers'>
+					<div class='main-header'><b>{{name}} Fandom</b>
+						<span class='buttons-container'>
+							<span *ngIf="showAdminB"><button class='admin-button' [disabled]='true'>{{adminB}}</button></span>
+							<span *ngIf="showFollowB"><button class='follow-button' (click)="subscribe(name)">{{followB}}</button></span>
+							<span *ngIf="showUnfollowB"><button class='unfollow-button' (click)="unsubscribe(name)">{{followB}}</button></span>
+							<span *ngIf="showB"><button class='fa fa-edit edit-button' (click)="toEditFandom()"></button></span>
+							<span *ngIf="showB"><button class='fa fa-trash delete-button' (click)="deleteFandom()"></button></span>
+						</span>
+					</div>
+				</div>
+				<div>admin: <a class='admin' (click)='toUserProfile(admin)'>{{admin}}</a></div>
+				<div>followers: {{subcount}}</div>
+				<div class='description'><b>{{desc}}</b></div>
+			</div>
+		</div>
+
+		<div class='posts-section-container'>
+			<div class='posts-section-headers'>
+				<div class='header-container'><span class='header'><b>{{postHeader}}</b></span>
+					<span class='buttons-container'>
+						<button class='create-post-button' (click)="toNewPost()">Create Post</button>
+						<div class="sort-dropdown-button-container" ngbDropdown>
+							<button class="sort-dropdown-button" ngbDropdownToggle>Sort by</button>
+							<div class="sort-dropdown-items-container" ngbDropdownMenu>
+								<div class='recent-filter-container'>
+									<div>Recent</div><div><input id='recent-filter' type='checkbox'></div>
+								</div>
+								<div class='pop-filter-container'>
+									<div>Popularity</div><div><input id='pop-filter' type="checkbox"></div>
+								</div>
+								<div><button class="apply-button" (click)='toSortedPostPg()'>apply</button></div>
+							</div>
+						</div>
+					</span>
+				</div>
+			</div>
+			<hr class='sections-separator'>
+
+			<div class='row post-box' *ngFor="let post of posts; let i = index;"><input style='display: none;' value='{{postIds[i]}}' #postId>
+				<div class='column post-box-left-column'>
+					<input value='{{postAuthors[i]}}' #author style='display: none;'>
+					<a (click)="toUserProfile(author.value)">
+						<img class='user-img' src="{{userImages[i]}}">
+					</a>
+					<hr class='post-box-left-column-separator'>
+					<div style='font-size: 13px;'>{{postAuthors[i]}}</div>
+				</div>
+
+				<div class='column post-box-main-column'>
+					<div class='post-box-main-column-header'>
+						<span class='post-box-main-column-header-fandom-link'>
+							f/<a (click)="redirectToFandom(postFandoms[i])" *ngIf="postFandoms[i] != 'none-selected'">{{postFandoms[i]}}</a>
+						</span>
+						<span class='post-box-main-column-header-right-section'>
+							<span style='margin-right: 15px;'>{{postTags[i]}}</span>
+							<span style='margin-right: 8px;'>{{postTimestamps[i]}}</span>
+							<span style='float: right;'>
+								<a class='delete-post-button' (click)="deletePost(postId.value, author.value)"><i class='fa fa-trash'></i></a>
+							</span>
+						</span>
+					</div>
+					<h6><b>{{postTitles[i]}}</b></h6>
+					<div style='margin-bottom: 10px;'>{{postContents[i]}}</div>
+					<p *ngIf="postImages[i] != ''">
+						<img class='post-box-main-column-content-img' src="{{postImages[i]}}">
+					</p>
+					<button class="btn-outline num-comments-button" (click)="toCommentPg(postId.value)">
+						{{postNumComments[i]}} {{comments[i]}}
+					</button>
+				</div>
+
+				<div class='column post-box-separator'></div>
+				<div class='column post-box-right-column'>
+					<div class='arrow-up' id='arrow-up' (click)='upvote(postId.value, numVotes.value)'></div>
+					<input value='{{postNumVotes[i]}}' #numVotes style='display: none;'>
+					<p id='{{postIds[i]}}' class='numVotes' style='text-align: center;'>{{postNumVotes[i]}}</p>
+					<div class='arrow-down' id='arrow-down' (click)='downvote(postId.value, numVotes.value)'></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

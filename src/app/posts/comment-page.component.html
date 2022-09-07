@@ -1,0 +1,64 @@
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+
+<div class='page-container'>
+	<div class='page-content-container'>
+		<div class='row post-box'><input value='{{postId}}' #postId style='display: none;'>
+			<div class='column post-box-left-column'>
+				<input value='{{postAuthor}}' #author style='display: none;'>
+				<a (click)="toUserProfile(author.value)">
+					<img class='user-img' src="{{userImage}}">
+				</a>
+				<hr class='post-box-left-column-separator'>
+				<div>{{postAuthor}}</div>
+			</div>
+
+			<div class='column post-box-main-column'>
+				<div class='post-box-main-column-header'>
+					<span class='post-box-main-column-header-fandom-link'>
+						f/<a (click)="redirectToFandom(postFandom)" *ngIf="postFandom!='none-selected'">{{postFandom}}</a>
+					</span>
+					<span class='post-box-main-column-header-right-section'>
+						<span style='margin-right: 15px;'>{{postTag}}</span>
+						<span style='margin-right: 8px;'>{{postTimestamp}}</span>
+						<span style='float: right;'>
+							<a class='delete-post-button' (click)="deletePost(postId.value, author.value)"><i class='fa fa-trash'></i></a>
+						</span>
+					</span>
+				</div>
+				<h6><b>{{postTitle}}</b></h6>
+				<div style='margin-bottom: 10px;'>{{postContent}}</div>
+				<p *ngIf="postImage!=''"><img class='post-box-main-column-content-img' src="{{postImage}}"></p>
+				<button class="num-comments-button" [disabled]="true">{{postNumComment}} {{comments}}</button>
+				<button class="reply-button" (click)="replyClick()">reply</button>
+
+				<div class='reply-section-container' *ngIf="isShow">
+					<div><textarea class='reply-box' #tArea placeholder="Reply..."></textarea></div>
+					<div class='send-button-container'>
+						<button class='send-button' type='submit' (click)='sendComment(tArea.value)'>Send</button>
+					</div>
+				</div>
+			</div>
+
+			<div class='column post-box-separator'></div>
+			<div class='column post-box-right-column'>
+				<div class='arrow-up' id='arrow-up' (click)='upvote()'></div>
+				<input value='{{postNumVote}}' #numVotes style='display: none;'>
+				<p id='numVote' style='text-align: center;'>{{postNumVote}}</p>
+				<div class='arrow-down' id="arrow-down" (click)='downvote()'></div>
+			</div>
+		</div>
+
+		<div class='comments-list-container'>
+			<div class='empty-state-message' *ngIf="postNumComment == 0">no comments</div>
+			<div class='comments-list-item-container' *ngFor="let comment of postComments">
+				<div class='comments-list-item-content'>
+					{{comment?.comment}}
+				</div>
+				<div class='comments-list-item-author'>
+					<input value='{{comment?.author}}' #sender style='display: none;'>
+					sent by: <a class='comment-author-username' (click)="toUserProfile(sender.value)">{{comment?.author}}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

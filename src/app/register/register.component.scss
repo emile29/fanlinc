@@ -1,0 +1,33 @@
+@import 'src/styles.scss';
+
+.page-container {
+	font-family: $base-font-family;
+	font-size: $base-font-size;
+	padding: 50px 35%;
+
+	@media screen and (max-width: 425px) {
+		padding: 50px 20%;
+	}
+
+	.page-content-container {
+		text-align: center;
+
+		.header {
+			font-size: $page-header-font-size;
+		}
+
+		.username, .email, .password {
+			margin-top: 12px;
+			font-size: $base-font-size + 1px;
+		}
+
+		.err-message {
+			color: red;
+		}
+
+		.sign-up-button {
+			margin-top: 18px;
+			padding: 8px;
+		}
+	}
+}

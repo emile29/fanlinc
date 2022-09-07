@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500");
+
+/* global styles */
+$primary-color: #ffaa5a;
+$secondary-color: #48c9b0;
+$third-color: #5dade2;
+$textbox-background-color: #626567;
+$box-shadow: .5px 1px 2px #c9cccd;
+$page-background-color: #eaeded;
+$main-padding: 1em 15% 3em 15%;
+$base-font-size: 13px;
+$page-header-font-size: 24px;
+$base-font-family: Quicksand;
+
+ %ext-common-button{
+	color: white;
+	border-radius: 3px;
+	border-style: solid;
+	box-shadow: $box-shadow;
+	font-size: $base-font-size;
+
+	@media screen and (max-width: 425px) {
+		font-size: $base-font-size - 3px;
+	}
+}

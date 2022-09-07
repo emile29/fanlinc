@@ -1,0 +1,11 @@
+{
+    "files.trimTrailingWhitespace": true,
+	"editor.tabSize": 3,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "npm-intellisense.importES6": true,
+    "npm-intellisense.importQuotes": "'",
+    "npm-intellisense.importLinebreak": ";\r\n",
+    "npm-intellisense.importDeclarationType": "const"
+}

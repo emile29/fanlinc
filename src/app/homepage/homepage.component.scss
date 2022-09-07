@@ -1,0 +1,13 @@
+@import 'src/styles.scss';
+
+.page-container {
+	padding: 10%;
+	font-family: $base-font-family;
+	text-align: center;
+	color: $primary-color;
+
+	@media screen and (max-width: 768px) {
+		padding: 15% 3%;
+	}
+}
+

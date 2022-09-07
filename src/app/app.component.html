@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+	<mat-toolbar class='nav-bar'>
+		<a class='title-header' routerLink=''>{{title}}</a>
+
+		<!-- This fills the remaining space of the current row -->
+		<span class="fill-remaining-space"></span>
+
+		<a class='about-header' routerLink='/about'>About</a>
+		<a class='login-header' routerLink='/login'>Login</a>
+
+		<a class='username-container' *ngIf='isShow' title='{{user}}' (click)="navig()">
+			<img class='user-img' src="{{userImg}}"><span class="username">{{user}}</span>
+		</a>
+		<div class="notif-dropdown-container" *ngIf='isShow' ngbDropdown>
+			<button class="notif-dropdown-button btn-outline fa fa-bell" ngbDropdownToggle>
+				<span class='num-pendings-info'> {{numPendings}}</span>
+			</button>
+			<div class="notif-dropdown-items-container" ngbDropdownMenu>
+				<p class='notif-dropdown-item' *ngFor="let friendUsername of pendingNames;">
+					<span>Friend Request from </span>
+					<a class='friend-username' (click)='toUserProfile(item)'>{{friendUsername}} </a>
+					<button class='accept-button' (click)='addFriend(item)'>Accept</button>
+				</p>
+			</div>
+		</div>
+
+		<div class="menu-dropdown-container" ngbDropdown>
+			<button class="menu-dropdown-button" ngbDropdownToggle>
+				<span class='menu-icon'>&#9776;</span>
+			</button>
+			<div class='menu-dropdown-items-container' ngbDropdownMenu>
+				<button class='menu-dropdown-item' (click)="toPostsPg()" ngbDropdownItem>Posts Feed</button>
+				<button class='menu-dropdown-item' routerLink='/fandoms' ngbDropdownItem>Fandoms</button>
+			</div>
+		</div>
+	</mat-toolbar>
+
+	<body>
+		<router-outlet></router-outlet>
+	</body>
+</html>

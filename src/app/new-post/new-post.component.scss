@@ -1,0 +1,99 @@
+@import 'src/styles.scss';
+
+.page-container {
+	background: $page-background-color;
+	height: 100vh;
+	padding: 50px 30%;
+	font-family: $base-font-family;
+	font-size: $base-font-size;
+
+	@media screen and (max-width: 768px) {
+		padding: 50px 10%;
+	}
+
+	.content-container {
+		background: white;
+		padding: 20px 35px;
+		text-align: center;
+		border-radius: 3px;
+		box-shadow: $box-shadow;
+
+		.header {
+			margin-bottom: 10px;
+			font-size: $page-header-font-size;
+		}
+
+		.title, .tags, .image, .description {
+			padding: 5px 10px;
+			background: $page-background-color;
+			border-radius: 3px;
+			border: none;
+		}
+
+		.tags, .image, .description {
+			width: 100%;
+		}
+
+		.tags, .image, .description, .submit-button {
+			margin-top: 8px;
+		}
+
+		.title, .fandom-filter-dropdown-button, .tags, .image, .description, .submit-button {
+			height: 32px;
+		}
+
+		.first-row {
+			width: 100%;
+			text-align: left;
+			display: flex;
+			margin-top: 20px;
+
+			.title-container, .title {
+				width: 100%;
+			}
+
+			.fandom-filter-dropdown-container {
+				margin-left: 6px;
+
+				.fandom-filter-dropdown-button {
+					background: $page-background-color;
+					border: none;
+					border-radius: 3px;
+					color: #626567;
+
+					&:hover {
+						color: $third-color;
+					}
+				}
+
+				.fandom-filter-dropdown-item-container {
+					max-height: 300px;
+					overflow: auto;
+
+					.fandom-filter-dropdown-item{
+						font-size: $base-font-size;
+					}
+				}
+			}
+		}
+
+		.description {
+			min-height: 80px;
+		}
+
+		.submit-button {
+			@extend %ext-common-button;
+			border-color: $secondary-color;
+			background-color: $secondary-color;
+
+			&:hover {
+				color: grey;
+			}
+		}
+
+		.err-message {
+			margin-top: 10px;
+			color: red;
+		}
+	}
+}

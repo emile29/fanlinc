@@ -1,0 +1,20 @@
+<div class='page-container'>
+	<div class='page-content-container'>
+		<div class='header'><b>Edit Fandom</b></div>
+
+		<div class='row-container'>
+			<div class='col-container'><p>Name</p></div>
+			<div class='col-container'><input class='title' id='title' [disabled]='true' #title placeholder="{{name}}"></div>
+		</div>
+		<div class='row-container'>
+			<div class='col-container'><p>ImageURL</p></div>
+			<div class='col-container'><input class='image' id='image' #image></div>
+		</div>
+		<div class='row-container'>
+			<div class='col-container'><p>Description</p></div>
+			<div class='col-container'><textarea class='description' id='description' #desc></textarea></div>
+		</div>
+
+		<button class='save-button' mdbBtn color='info' (click)='saveChanges(title.value,image.value,desc.value)'>save changes</button>
+	</div>
+</div>

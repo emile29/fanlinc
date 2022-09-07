@@ -1,0 +1,65 @@
+<div class='page-container'>
+	<div class='page-content-container'>
+		<div class='header'><b>Edit Profile</b></div>
+
+		<div class="row-container">
+			<div class="col-container"><p>Password</p></div>
+			<div class="col-container"><input class="password" id='password' type='password' #password></div>
+		</div>
+		<div class="row-container">
+			<div class="col-container"><p>Email</p></div>
+			<div class="col-container"><input class="email" id='email' #email></div>
+		</div>
+		<div class="row-container">
+			<div class="col-container"><p>Type</p></div>
+			<div class="col-container type-content-container">
+				<input class='type' id='type' [disabled]='true' #type>
+				<div class="choose-type-dropdown-container" ngbDropdown>
+					<button class='choose-type-dropdown-button' ngbDropdownToggle>type</button>
+					<div class='choose-type-dropdown-items-container' ngbDropdownMenu>
+						<a class='choose-type-dropdown-item' (click)="setType(typeval.value)" *ngFor="let type of types" id="{{type}}" ngbDropdownItem>{{type}}<input #typeval value="{{type}}" style='display: none;'></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-container">
+			<div class="col-container"><p>Level</p></div>
+			<div class="col-container level-content-container">
+				<input class='level' id='level' [disabled]='true' #level>
+				<div class="choose-level-dropdown-container" ngbDropdown>
+					<button class='choose-level-dropdown-button' ngbDropdownToggle>level</button>
+					<div class='choose-level-dropdown-items-container' ngbDropdownMenu>
+						<a class='choose-level-dropdown-item' (click)="setLevel(levelval.value)" *ngFor="let level of levels" id="{{level}}" ngbDropdownItem>
+							{{level}}<input #levelval value="{{level}}" style='display: none;'>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-container">
+			<div class="col-container"><p>Bio</p></div>
+			<div class="col-container"><textarea class="bio" id='bio' placeholder="Enter a bio" #bio></textarea></div>
+		</div>
+		<div class="row-container">
+			<div class="col-container"><p>Age</p></div>
+			<div class="col-container"><input class="age" id='age' type="number" min="0" #age></div>
+		</div>
+		<div class="row-container">
+			<div class="col-container"><p>ImageURL</p></div>
+			<div class="col-container"><input class="image" id='image' #image></div>
+		</div>
+		<div class="row-container">
+			<div class="col-container"><p>Interests</p></div>
+			<div class="col-container">
+				<div class='existing-interests-container'>
+					<button class='existing-interests' *ngFor="let item of interests" [disabled]='true'>{{item}}</button>
+				</div>
+				<input class='interest' placeholder="add an interest" #interest>
+			</div>
+		</div>
+
+		<button class='save-button' mdbBtn color="info" (click)="saveChanges(password.value, email.value, bio.value, age.value, image.value, interest.value)">
+			save changes
+		</button>
+	</div>
+</div>

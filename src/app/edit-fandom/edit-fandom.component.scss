@@ -1,0 +1,78 @@
+@import 'src/styles.scss';
+
+.page-container {
+	background: $page-background-color;
+	font-family: $base-font-family;
+	font-size: $base-font-size;
+	height: 100vh;
+	padding: 50px 30%;
+
+	@media screen and (max-width: 768px) {
+		padding: 5%;
+	}
+
+	.page-content-container {
+		text-align: center;
+		padding: 15px 20px;
+		background-color: white;
+		box-shadow: $box-shadow;
+		border-radius: 3px;
+
+		.header {
+			margin-bottom: 10px;
+			font-size: $page-header-font-size;
+		}
+
+		.row-container {
+			display: flex;
+			width: 100%;
+			text-align: left;
+
+			.col-container {
+				&:first-child {
+					width: 35%;
+					margin-right: 20px;
+
+					@media screen and (max-width: 768px) {
+						width: 30%;
+					}
+				}
+
+				&:last-child {
+					width: 65%;
+
+					@media screen and (max-width: 768px) {
+						width: 70%;
+					}
+				}
+
+				p {
+					color: $primary-color;
+					float: right;
+				}
+
+				.title, .image, .description {
+					width: 80%;
+					padding: 2px 5px;
+					background: $page-background-color;
+					border: 1.1px solid $page-background-color;
+					border-radius: 3px;
+
+					@media screen and (max-width: 768px) {
+						width: 90%;
+					}
+				}
+
+				.description {
+					min-height: 100px;
+				}
+			}
+		}
+
+		.save-button {
+			margin-top: 18px;
+			padding: 5px 10px;
+			font-size: $base-font-size - 1px;
+		}
+	}
+}

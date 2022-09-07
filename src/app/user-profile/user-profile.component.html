@@ -1,0 +1,59 @@
+<div class='page-container'>
+	<div class='sections-container'>
+		<div class='left-section'>
+			<div class='left-section-upper-area'>
+				<div><img class='user-img' src="{{imagelink}}"></div>
+				<div><button class='friend-button' id='friendB' *ngIf='isShow' (click)="addFriendClicked(username)">{{friendB}}</button></div>
+				<div><button class='friend-button' id='friendBUnfriend' *ngIf='isUnfriend' (click)="addFriendClicked(username)">{{friendB}}</button></div>
+			</div>
+			<div><span class='username app-primary-color'>Username:</span> {{username}}</div>
+			<div><span class='email app-primary-color'>Email:</span> {{email}}</div>
+			<div><span class='age app-primary-color'>Age:</span> {{age}}</div>
+			<p></p>
+			<div class='bio-header app-primary-color'>Bio:</div>
+			<textarea class='bio-box' #biotext value='{{bio}}' type="text" readonly></textarea>
+			<div class='interests-container'>
+				<div class='interest-header app-primary-color'>Interests: </div>
+				<button class='interest-button' *ngFor="let item of interests" [disabled]='true'>{{item}}</button>
+			</div>
+		</div>
+
+		<div class='main-section'>
+			<div class='user-type-box'>
+				<span style='margin-right: 15px;'>
+					<b>type: </b><button class='type-button' [disabled]='true'>{{type}}</button>
+				</span>
+				<span>
+					<b>level: </b><button class='level-button' [disabled]='true'>{{level}}</button>
+				</span>
+			</div>
+			<br>
+
+			<div class='main-section-columns-container'>
+				<div class='fandoms-column'>
+					<div><span class='fandoms-column-header app-primary-color'>Following</span></div>
+					<div class="list">
+						<a class='list-item' *ngFor="let fandom of fandoms" (click)='toFandomPg(fandomval.value)'>
+							<input style="display: none;" #fandomval value="{{fandom}}">{{fandom}}
+						</a>
+					</div>
+				</div>
+
+				<div class='friends-column'>
+					<div><span class='friends-column-header app-primary-color'>Friends</span></div>
+					<div class="list">
+						<a class='list-item' *ngFor="let friend of friends" (click)='toUserProfile(friendval.value)'>
+							<input style="display: none;" #friendval value="{{friend}}">{{friend}}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class='page-footer' *ngIf="!isShow && !isUnfriend">
+		<hr>
+		<button class='edit-button' mdbBtn color="info" #edit (click)="redirectToEditProfile()">edit profile</button>
+		<button class='logout-button' mdbBtn color="info" #save (click)="logout()">logout</button>
+	</div>
+</div>

@@ -1,0 +1,140 @@
+@import 'src/styles.scss';
+
+.page-container {
+	padding: 30px 15%;
+	font-family: $base-font-family;
+	font-size: $base-font-size;
+
+	@media screen and (max-width: 768px) {
+		padding: 18px 7%;
+	}
+
+	@media screen and (max-width: 425px) {
+		padding: 18px 7.2%;
+	}
+
+	.page-header {
+		text-align: left;
+		font-size: $page-header-font-size;
+
+		.create-fandom-button-container {
+			float: right;
+			line-height: 16px;
+			padding: 5px 0;
+
+			@media screen and (min-width: 769px) {
+				display: none;
+			}
+
+			@media (min-width: 426px) and (max-width: 768px) {
+				padding-right: 15px;
+			}
+
+			.create-fandom-button {
+				@extend %ext-common-button;
+				background-color: $primary-color;
+				border-color: $primary-color;
+			}
+		}
+	}
+
+	.page-content-container {
+		display: flex;
+		margin-top: 12px;
+
+		.fandom-cards-section-container {
+			width: 78%;
+			display: flex;
+			flex-wrap: wrap;
+
+			@media screen and (max-width: 768px) {
+				width: 100%;
+			}
+
+			@media screen and (max-width: 425px) {
+				justify-content: space-between;
+			}
+
+			.fandom-card {
+				border-radius: 5px;
+				width: 160px;
+				height: 220px;
+				text-align: center;
+				box-shadow: $box-shadow;
+				margin: 0 18px 18px 0;
+
+				@media screen and (max-width: 768px) {
+					margin: 0 15px 15px 0;
+					width: 150px;
+					height: 210px;
+				}
+
+				@media screen and (max-width: 425px) {
+					margin: 0 0 18px 0;
+				}
+
+				&-image {
+					width: 100%;
+					height: 90%;
+				}
+
+				&-overlay {
+					width: 100%;
+					height: 90%;
+				}
+
+				&-name {
+					height: 10%;
+				}
+			}
+		}
+
+		.create-fandom-section-container {
+			width: 22%;
+			margin-left: 20px;
+
+			@media screen and (max-width: 768px) {
+				display: none;
+			}
+
+			.create-fandom-content-container {
+				text-align: center;
+
+				.header {
+					text-align: left;
+					font-size: 18px;
+				}
+
+				.title, .description {
+					padding: 5px 10px;
+					width: 100%;
+					background: $page-background-color;
+					border-color: $page-background-color;
+					border-radius: 3px;
+					border-style: none;
+				}
+
+				.title, .description {
+					margin-top: 8px;
+				}
+
+				.description {
+					min-height: 80px;
+				}
+
+				.submit-button {
+					@extend %ext-common-button;
+					border-color: $secondary-color;
+					background-color: $secondary-color;
+					margin-top: 3px;
+
+					&:hover {
+						color: grey;
+					}
+				}
+			}
+		}
+	}
+}
+
+

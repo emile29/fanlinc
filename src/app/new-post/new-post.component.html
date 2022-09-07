@@ -1,0 +1,24 @@
+<div class='page-container'>
+	<div class='content-container'>
+		<div class='header'><b>Create a new post</b></div>
+
+		<div class='first-row'>
+			<div class='title-container'><input class='title' #title placeholder='Enter title'></div>
+			<div class="fandom-filter-dropdown-container" ngbDropdown>
+				<button class='fandom-filter-dropdown-button' ngbDropdownToggle>fandom</button>
+				<div class='fandom-filter-dropdown-item-container' ngbDropdownMenu>
+					<a class='fandom-filter-dropdown-item' id="{{item}}" [ngStyle]="{'background': fandomBacks[item]}"
+						*ngFor="let item of fandoms" (click)="setFandom(fandom.value)" ngbDropdownItem>
+						{{item}}<input #fandom value="{{item}}" style='display: none;'>
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div><input class='tags' #tags placeholder='Enter tags (e.g: #tag1 #tag2)'></div>
+		<div><input class='image' #image placeholder='Image link (optional)'></div>
+		<div><textarea class='description' #content placeholder='Enter description'></textarea></div>
+		<button class='submit-button' (click)='createPost(title.value,tags.value,content.value,image.value)'>submit</button>
+		<div class='err-message' *ngIf="message != ''">{{message}}</div>
+	</div>
+</div>
