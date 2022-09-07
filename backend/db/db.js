@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export function connection() {
-  const uri = "mongodb+srv://User:28qHA0Fvm9gYNYxw@cluster0.b18to.mongodb.net/?retryWrites=true&w=majority";
+  const uri = "<mongodb_url>";
   mongoose.connect(uri, {
                           useNewUrlParser : true,
                           useUnifiedTopology : true,
