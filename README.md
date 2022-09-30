@@ -1,4 +1,4 @@
-## Fanlinc
+# Fanlinc
 A place where fans can come together and share their passion for their favourite fandoms.
 
 ## Demo
