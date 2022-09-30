@@ -4,7 +4,7 @@ A place where fans can come together and share their passion for their favourite
 ## Live Demo
 https://fanlinc.herokuapp.com
 
-### Instructions to run locally
+## Instructions to run locally
 - Clone repo to your local computer.
 - In repo folder, run `npm install` to install all the required dependencies.
 - Open two terminals in the repo folder.
