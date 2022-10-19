@@ -2,7 +2,7 @@
 A place where fans can come together and share their passion for their favourite fandoms.
 
 ## Live Demo 
-https://fanlinc1.herokuapp.com
+https://fanlinc1.herokuapp.com (the one in resume is broken, use this)
 
 ## Instructions to run locally
 - Clone repo to your local computer.
