@@ -1,8 +1,8 @@
 # Fanlinc
 A place where fans can come together and share their passion for their favourite fandoms.
 
-## Live Demo
-https://fanlinc.herokuapp.com
+## Live Demo 
+https://fanlinc1.herokuapp.com
 
 ## Instructions to run locally
 - Clone repo to your local computer.
