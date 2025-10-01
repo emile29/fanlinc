@@ -1,5 +1,18 @@
 @import 'src/styles.scss';
 
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    margin-left: 250px; // This should match the width of your sidenavbar
+    margin-top: 60px;  // This should match the height of your topnavbar
+    padding: 20px;
+    flex: 1;
+}
+
 .nav-bar {
 	font-size: $base-font-size;
 	font-family: $base-font-family;

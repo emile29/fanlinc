@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { HomepageComponent } from './homepage/homepage.component';
-import { AboutComponent } from './about/about.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
-import { PostsComponent } from './posts/posts.component';
-import { NewPostComponent } from './new-post/new-post.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { FandomsComponent } from './fandoms/fandoms.component';
-import { FandomPageComponent } from './fandom-page/fandom-page.component';
-import { NewFandomComponent } from './new-fandom/new-fandom.component';
-import { CommentPgComponent } from './posts/comment-page.component';
-import { EditFandomComponent } from './edit-fandom/edit-fandom.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { LoginComponent } from './pages/login/login.component';
+import { HomepageComponent } from './pages/home/homepage.component';
+import { AboutComponent } from './pages/about/about.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { PostsComponent } from './pages/posts/posts.component';
+import { NewPostComponent } from './pages/new-post/new-post.component';
+import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
+import { FandomsComponent } from './pages/fandoms/fandoms.component';
+import { FandomPageComponent } from './pages/fandom/fandom-page.component';
+import { NewFandomComponent } from './pages/new-fandom/new-fandom.component';
+import { CommentPgComponent } from './pages/posts/comment-page.component';
+import { EditFandomComponent } from './pages/edit-fandom/edit-fandom.component';
 
 const routes: Routes = [
 	{ path: 'editprofile', component: EditProfileComponent },
@@ -37,19 +37,3 @@ const routes: Routes = [
 	exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [
-	EditProfileComponent,
-	AboutComponent,
-	LoginComponent,
-	RegisterComponent,
-	UserProfileComponent,
-	PageNotFoundComponent,
-	FandomsComponent,
-	FandomPageComponent,
-	PostsComponent,
-	NewPostComponent,
-	CommentPgComponent,
-	HomepageComponent,
-	NewFandomComponent,
-	EditFandomComponent
-];

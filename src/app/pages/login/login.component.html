@@ -1,0 +1,26 @@
+<div class="page-container">
+	<div class="page-content-container">
+		<form [formGroup]='form'>
+			<div class='header'>Sign In</div>
+
+			<input class="form-control username" placeholder="Username" formControlName='username' #username>
+
+			<input class="form-control password" type="password" placeholder="Password" formControlName='password' #password>
+
+			<div class='err-message'>{{message}}</div>
+
+			<!-- <div>
+				<span>Remember me <mdb-checkbox [default]="true"></mdb-checkbox></span>
+				Forgot password? <a routerLink='#' routerLinkActive='active'>Click here</a>
+			</div> -->
+
+			<p class="not-member-row">Not a member? <a routerLink='/register' routerLinkActive='active'>Register</a></p>
+
+			<button class='btn sign-in-button' mdbBtn color="info" block="true" type="submit" [disabled]="!form.valid" (click)="getUser(username.value, password.value)">
+				Sign In
+			</button>
+
+			<!-- <hr> -->
+		</form>
+	</div>
+</div>

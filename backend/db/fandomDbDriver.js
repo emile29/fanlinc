@@ -1,115 +1,138 @@
 import fandomSchema from './../models/fandom';
 
 class FandomDBDriver {
-	getAllFandoms(req, res) {
-		fandomSchema.find(function(err, fandoms) {
-			if (err)
-				res.status(400).send(err.message);
-			else
-				res.status(200).json(fandoms);
-		})
+	async getAllFandoms(req, res) {
+		try {
+			const fandoms = await fandomSchema.find();
+			res.status(200).json(fandoms);
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	getFandom(req, res) {
-		fandomSchema.find({name: req.params.name}, function(err, fandom) {
-			if (err)
-				res.status(400).send(err.message);
-			else if (fandom == '')
-				res.status(404).send("Fandom '" + req.params.username + "' not found");
-			else
-				res.status(200).send(fandom);
-		});
-	}
-
-	addFandom(fandom, res) {
-		var newFandom = new fandomSchema(fandom.body)
-		newFandom.save(function(err, user) {
-			if (err)
-				res.status(400).send(err.message);
-			else
-				res.status(200).send(user);
-		});
-	}
-
-	updateFandom(req, res) { //for all other fields that's not array
-		fandomSchema.updateOne({
-			name : req.params.name
-		}, req.body, function(err, fandom) {
-			if (err)
-				res.status(404).send(err.errmsg);
-			else if (fandom.n == 0)
-				res.status(404).send("fandom '" + req.params.name + "' not found");
-			else
-				res.status(200).send(fandom)
-		})
-	}
-
-	setPosts(req, res) {
-		fandomSchema.updateOne({name : req.params.name}, {$push: {"posts": req.body.newPost}},
-			function(err, fandom) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (fandom.n == 0)
+	async getFandom(req, res) {
+		try {
+			const fandom = await fandomSchema.find({name: req.params.name});
+			if (!fandom || fandom.length === 0) {
 				res.status(404).send("Fandom '" + req.params.name + "' not found");
-			else
+			} else {
 				res.status(200).send(fandom);
-		});
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	setMods(req, res) {
-		fandomSchema.updateOne({name : req.params.name}, {$push: {"mods": req.body.newMod}},
-			function(err, fandom) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (fandom.n == 0)
+	async addFandom(fandom, res) {
+		try {
+			const newFandom = new fandomSchema(fandom.body);
+			const savedFandom = await newFandom.save();
+			res.status(200).send(savedFandom);
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
+	}
+
+	async updateFandom(req, res) { //for all other fields that's not array
+		try {
+			const fandom = await fandomSchema.updateOne(
+				{name: req.params.name},
+				req.body
+			);
+			if (fandom.modifiedCount === 0) {
 				res.status(404).send("Fandom '" + req.params.name + "' not found");
-			else
+			} else {
 				res.status(200).send(fandom);
-		});
+			}
+		} catch (err) {
+			res.status(404).send(err.message);
+		}
 	}
 
-	setEvents(req, res) {
-		fandomSchema.updateOne({name : req.params.name}, {$push: {"events": req.body.newEvent}},
-			function(err, fandom) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (fandom.n == 0)
+	async setPosts(req, res) {
+		try {
+			const fandom = await fandomSchema.updateOne(
+				{name: req.params.name},
+				{$push: {"posts": req.body.newPost}}
+			);
+			if (fandom.modifiedCount === 0) {
 				res.status(404).send("Fandom '" + req.params.name + "' not found");
-			else
+			} else {
 				res.status(200).send(fandom);
-		});
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	setSubCount(req, res) {
-		fandomSchema.updateOne({name : req.params.name}, {subcount: req.body.subcount},
-			function(err, fandom) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (fandom.n == 0)
+	async setMods(req, res) {
+		try {
+			const fandom = await fandomSchema.updateOne(
+				{name: req.params.name},
+				{$push: {"mods": req.body.newMod}}
+			);
+			if (fandom.modifiedCount === 0) {
 				res.status(404).send("Fandom '" + req.params.name + "' not found");
-			else
+			} else {
 				res.status(200).send(fandom);
-		});
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	deleteFandom(req, res) {
-		fandomSchema.deleteOne({name : req.params.name}, function(err, fandom) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (fandom.n == 0)
-				res.status(404).send("fandom '" + req.params.name + "' not found");
-			else
+	async setEvents(req, res) {
+		try {
+			const fandom = await fandomSchema.updateOne(
+				{name: req.params.name},
+				{$push: {"events": req.body.newEvent}}
+			);
+			if (fandom.modifiedCount === 0) {
+				res.status(404).send("Fandom '" + req.params.name + "' not found");
+			} else {
 				res.status(200).send(fandom);
-		});
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	deleteAll(req, res) {
-		fandomSchema.deleteMany({}, function(err) {
-			if (err)
-				res.status(400).send(err);
-			else
-				res.status(200).send('deleted');
-		});
+	async setSubCount(req, res) {
+		try {
+			const fandom = await fandomSchema.updateOne(
+				{name: req.params.name},
+				{subcount: req.body.subcount}
+			);
+			if (fandom.modifiedCount === 0) {
+				res.status(404).send("Fandom '" + req.params.name + "' not found");
+			} else {
+				res.status(200).send(fandom);
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
+	}
+
+	async deleteFandom(req, res) {
+		try {
+			const fandom = await fandomSchema.deleteOne({name: req.params.name});
+			if (fandom.deletedCount === 0) {
+				res.status(404).send("Fandom '" + req.params.name + "' not found");
+			} else {
+				res.status(200).send(fandom);
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
+	}
+
+	async deleteAll(req, res) {
+		try {
+			await fandomSchema.deleteMany({});
+			res.status(200).send('deleted');
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 }
 

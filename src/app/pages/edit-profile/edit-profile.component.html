@@ -1,0 +1,110 @@
+<div class='page-container'>
+	<div class='page-content-container'>
+		<div class='header'><b>Edit Profile</b></div>
+
+		<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+			<div class="row-container">
+				<div class="col-container"><p>Password</p></div>
+				<div class="col-container">
+					<input class="password" type='password' formControlName="password">
+					@if (profileForm.get('password')?.errors?.['required'] && profileForm.get('password')?.touched) {
+						<div class="error-message">Password is required</div>
+					}
+					@if (profileForm.get('password')?.errors?.['minlength'] && profileForm.get('password')?.touched) {
+						<div class="error-message">Password must be at least 6 characters</div>
+					}
+				</div>
+			</div>
+
+			<div class="row-container">
+				<div class="col-container"><p>Email</p></div>
+				<div class="col-container">
+					<input class="email" formControlName="email">
+					@if (profileForm.get('email')?.errors?.['required'] && profileForm.get('email')?.touched) {
+						<div class="error-message">Email is required</div>
+					}
+					@if (profileForm.get('email')?.errors?.['email'] && profileForm.get('email')?.touched) {
+						<div class="error-message">Please enter a valid email</div>
+					}
+				</div>
+			</div>
+
+			<div class="row-container">
+				<div class="col-container"><p>Type</p></div>
+				<div class="col-container type-content-container">
+					<input class='type' formControlName="type" [readonly]="true">
+					<div class="choose-type-dropdown-container" ngbDropdown>
+						<button type="button" class='choose-type-dropdown-button' ngbDropdownToggle>type</button>
+						<div class='choose-type-dropdown-items-container' ngbDropdownMenu>
+							@for (type of types; track type) {
+								<button type="button" class='choose-type-dropdown-item' (click)="setType(type)" [id]="type" ngbDropdownItem>
+									{{type}}
+								</button>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row-container">
+				<div class="col-container"><p>Level</p></div>
+				<div class="col-container level-content-container">
+					<input class='level' formControlName="level" [readonly]="true">
+					<div class="choose-level-dropdown-container" ngbDropdown>
+						<button type="button" class='choose-level-dropdown-button' ngbDropdownToggle>level</button>
+						<div class='choose-level-dropdown-items-container' ngbDropdownMenu>
+							@for (level of levels; track level) {
+								<button type="button" class='choose-level-dropdown-item' (click)="setLevel(level)" [id]="level" ngbDropdownItem>
+									{{level}}
+								</button>
+							}
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row-container">
+				<div class="col-container"><p>Bio</p></div>
+				<div class="col-container">
+					<textarea class="bio" placeholder="Enter a bio" formControlName="bio"></textarea>
+				</div>
+			</div>
+
+			<div class="row-container">
+				<div class="col-container"><p>Age</p></div>
+				<div class="col-container">
+					<input class="age" type="number" min="0" formControlName="age">
+					@if (profileForm.get('age')?.errors?.['min'] && profileForm.get('age')?.touched) {
+						<div class="error-message">Age cannot be negative</div>
+					}
+				</div>
+			</div>
+
+			<div class="row-container">
+				<div class="col-container"><p>ImageURL</p></div>
+				<div class="col-container">
+					<input class="image" formControlName="image">
+					@if (profileForm.get('image')?.errors?.['required'] && profileForm.get('image')?.touched) {
+						<div class="error-message">Image URL is required</div>
+					}
+				</div>
+			</div>
+
+			<div class="row-container">
+				<div class="col-container"><p>Interests</p></div>
+				<div class="col-container">
+					<div class='existing-interests-container'>
+						@for (item of interests; track item) {
+							<button type="button" class='existing-interests' [disabled]='true'>{{item}}</button>
+						}
+					</div>
+					<input class='interest' placeholder="add an interest" formControlName="newInterest">
+				</div>
+			</div>
+
+			<button type="submit" class='save-button' [disabled]="!profileForm.valid">
+				save changes
+			</button>
+		</form>
+	</div>
+</div>

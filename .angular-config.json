@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/workspace-schema.json",
+  "version": 2,
+  "cli": {
+    "analytics": false,
+    "schematicCollections": ["@angular/cli"]
+  },
+  "schematics": {
+    "@angular/cli:application": {
+      "strict": true,
+      "style": "scss"
+    }
+  }
+}

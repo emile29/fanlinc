@@ -2,118 +2,139 @@ import postSchema from './../models/post';
 import { ObjectId } from 'mongodb';
 
 class PostDBDriver {
-	getAllPosts(req, res) {
-		postSchema.find(function(err, posts) {
-			if (err)
-				res.status(400).send(err.message);
-			else
-				res.status(200).json(posts);
-		})
-	}
-
-	getAssociatedPosts(req, res) {
-		postSchema.find({
-			fandom : req.params.fandom
-		}, function(err, posts) {
-			if (err)
-			res.status(400).send(err.errmsg);
-		else if (posts == '')
-			res.status(404).send("Post '" + req.params.fandom + "' not found");
-		else
+	async getAllPosts(req, res) {
+		try {
+			const posts = await postSchema.find();
 			res.status(200).json(posts);
-		})
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	getPost(req, res) {
-		postSchema.find({
-			_id : ObjectId(req.params.id)
-		}, function(err, post) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (post == '')
+	async getAssociatedPosts(req, res) {
+		try {
+			const posts = await postSchema.find({
+				fandom: req.params.fandom
+			});
+			if (!posts || posts.length === 0) {
+				res.status(404).send("Post '" + req.params.fandom + "' not found");
+			} else {
+				res.status(200).json(posts);
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
+	}
+
+	async getPost(req, res) {
+		try {
+			const post = await postSchema.find({
+				_id: ObjectId(req.params.id)
+			});
+			if (!post || post.length === 0) {
 				res.status(404).send("Post '" + req.params.id + "' not found");
-			else
+			} else {
 				res.status(200).send(post);
-		});
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	addPost(post, res) {
-		var newPost = new postSchema(post.body)
-		newPost.save(function(err, post) {
-			if (err)
-				res.status(400).send(err.message);
-			else
+	async addPost(post, res) {
+		try {
+			const newPost = new postSchema(post.body);
+			const savedPost = await newPost.save();
+			res.status(200).send(savedPost);
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
+	}
+
+	async deleteAll(req, res) {
+		try {
+			await postSchema.deleteMany({});
+			res.status(200).send('deleted');
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
+	}
+
+	async setNumVotes(req, res) {
+		try {
+			const post = await postSchema.updateOne(
+				{_id: ObjectId(req.params.id)},
+				{"numVotes": req.body.numVotes}
+			);
+			if (post.modifiedCount === 0) {
+				res.status(404).send("Post '" + req.params.id + "' not found");
+			} else {
 				res.status(200).send(post);
-		});
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	deleteAll(req, res) {
-		postSchema.deleteMany({}, function(err) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else
-				res.status(200).send('deleted');
-		});
-	}
-
-	setNumVotes(req, res) {
-		postSchema.updateOne({_id : ObjectId(req.params.id)}, {"numVotes": req.body.numVotes},
-			function(err, post) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (post.n == 0)
+	async addComment(req, res) {
+		try {
+			const post = await postSchema.updateOne(
+				{_id: ObjectId(req.params.id)},
+				{$push: {"comments": {"comment":req.body.newComment, "author":req.body.author}}}
+			);
+			if (post.modifiedCount === 0) {
 				res.status(404).send("Post '" + req.params.id + "' not found");
-			else
+			} else {
 				res.status(200).send(post);
-		});
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	addComment(req, res) {
-		postSchema.updateOne({_id : ObjectId(req.params.id)},
-		{$push: {"comments": {"comment":req.body.newComment, "author":req.body.author}}},
-			function(err, post) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (post.n == 0)
+	async deletePost(req, res) {
+		try {
+			const post = await postSchema.deleteOne({_id: ObjectId(req.params.id)});
+			if (post.deletedCount === 0) {
 				res.status(404).send("Post '" + req.params.id + "' not found");
-			else
+			} else {
 				res.status(200).send(post);
-		});
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	deletePost(req, res) {
-		postSchema.deleteOne({_id : ObjectId(req.params.id)}, function(err, post) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (post.n == 0)
+	async updatePost(req, res) { //for all other fields that's not array
+		try {
+			const post = await postSchema.updateOne(
+				{_id: ObjectId(req.params.id)},
+				req.body
+			);
+			if (post.modifiedCount === 0) {
 				res.status(404).send("Post '" + req.params.id + "' not found");
-			else
+			} else {
 				res.status(200).send(post);
-		});
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 
-	updatePost(req, res) { //for all other fields that's not array
-		postSchema.updateOne({
-			_id : ObjectId(req.params.id)
-		}, req.body, function(err, post) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (post.n == 0)
+	async setUserImage(req, res) {
+		try {
+			const post = await postSchema.updateOne(
+				{_id: ObjectId(req.params.id)},
+				{userImage: req.body.image}
+			);
+			if (post.modifiedCount === 0) {
 				res.status(404).send("Post '" + req.params.id + "' not found");
-			else
-				res.status(200).send(post)
-		})
-	}
-
-	setUserImage(req, res) {
-		postSchema.updateOne({_id: ObjectId(req.params.id)}, {userImage: req.body.image}, function(err, post) {
-			if (err)
-				res.status(400).send(err.errmsg);
-			else if (post.n == 0)
-				res.status(404).send("Post '" + req.params.id + "' not found");
-			else
-				res.status(200).send(post)
-		})
+			} else {
+				res.status(200).send(post);
+			}
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
 	}
 }
 

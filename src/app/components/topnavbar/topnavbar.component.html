@@ -1,0 +1,30 @@
+<nav class="navbar">
+  <div class="navbar-content">
+    <div class="navbar-brand">
+      <a [routerLink]="['/']">
+        FanLinc
+      </a>
+    </div>
+
+    <div class="navbar-menu">
+      <div class="search-bar">
+        <input type="text" placeholder="Search...">
+        <button type="button" class="search-button">
+          Search
+        </button>
+      </div>
+    </div>
+
+	 <div class="navbar-end">
+        <ng-container *ngIf="!isLoggedIn">
+          <a [routerLink]="['/login']" class="nav-link">Login</a>
+          <a [routerLink]="['/register']" class="nav-link">Register</a>
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn">
+          <a [routerLink]="['/profile']" class="nav-link">Profile</a>
+          <button (click)="logout()" class="nav-link">Logout</button>
+        </ng-container>
+      </div>
+  </div>
+</nav>

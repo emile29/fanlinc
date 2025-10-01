@@ -1,12 +1,25 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
-export function connection() {
-  const uri = "<mongodb_url>";
-  mongoose.connect(uri, {
-                          useNewUrlParser : true,
-                          useUnifiedTopology : true,
-                        });
-  mongoose.connection.once('open', () => {
-      console.log('MongoDB database connection established successfully!');
-  });
+// Load environment variables from .env file
+dotenv.config();
+
+export async function connection() {
+  if (!process.env.MONGODB_URI) {
+    console.error('MONGODB_URI is not defined in .env file');
+    process.exit(1);
+  }
+
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      maxPoolSize: 50,
+      wtimeoutMS: 2500,
+      useNewUrlParser: true
+    });
+
+    console.log('MongoDB database connection established successfully!');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    process.exit(1);
+  }
 }

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../environments/environment';
+import { User } from './pages/interfaces/user.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -18,16 +20,16 @@ export class UserService {
 		}
 	}
 
-	getAllUsers() {
-		return this.http.get(`${this.uri}/users`);
+	getAllUsers(): Observable<User[]> {
+		return this.http.get<User[]>(`${this.uri}/users`);
 	}
 
-	getUser(username, password) {
-		return this.http.get(`${this.uri}/users/${username}/${password}`, { observe: 'response' });
+	getUser(username: string, password: string): Observable<HttpResponse<User[]>> {
+		return this.http.get<User[]>(`${this.uri}/users/${username}/${password}`, { observe: 'response' });
 	}
 
-	getUserByUsername(username) {
-		return this.http.get(`${this.uri}/users/${username}`, { observe: 'response' });
+	getUserByUsername(username: string): Observable<HttpResponse<User[]>> {
+		return this.http.get<User[]>(`${this.uri}/users/${username}`, { observe: 'response' });
 	}
 
 	addUser(username, email, password) {

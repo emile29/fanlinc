@@ -1,0 +1,22 @@
+<nav class="sidenav">
+  <div class="sidenav-content">
+    <!-- Add your sidenav content here -->
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          Home
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/fandoms']" routerLinkActive="active">
+          Fandoms
+        </a>
+      </li>
+      <li class="nav-item">
+        <a [routerLink]="['/posts']" routerLinkActive="active">
+          Posts
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
