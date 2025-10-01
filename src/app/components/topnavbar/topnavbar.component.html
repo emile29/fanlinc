@@ -16,15 +16,28 @@
     </div>
 
 	 <div class="navbar-end">
-        <ng-container *ngIf="!isLoggedIn">
+        <ng-container *ngIf="!user">
           <a [routerLink]="['/login']" class="nav-link">Login</a>
           <a [routerLink]="['/register']" class="nav-link">Register</a>
         </ng-container>
 
-        <ng-container *ngIf="isLoggedIn">
-          <a [routerLink]="['/profile']" class="nav-link">Profile</a>
+        <!-- <ng-container *ngIf="user">
+          <a [routerLink]="['/profile']"
+            [queryParams]="{user: user}"
+          class="nav-link">Profile</a>
           <button (click)="logout()" class="nav-link">Logout</button>
-        </ng-container>
-      </div>
+        </ng-container> -->
+
+        <!-- user icon section that toggles a dropdown menu on click -->
+        <div class="user-section" *ngIf="user" display="dynamic" ngbDropdown>
+          <div class="user-icon" ngbDropdownToggle>
+            <img [src]="userImg" alt="User Icon" class="user-img">
+          </div>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <a [routerLink]="['/profile']" [queryParams]="{ user }" class="nav-link">Profile</a>
+            <a (click)="logout()" class="nav-link">Logout</a>
+          </div>
+        </div>
+   </div>
   </div>
 </nav>
