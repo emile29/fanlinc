@@ -7,7 +7,7 @@ export function init(server) {
 	connection();
 
 	server.use('*', function(req, res, next) {
-		console.log('Request was made to: ' + req.originalUrl);
+		console.log(req.method + ' ' + req.originalUrl);
 		return next();
 	});
 
