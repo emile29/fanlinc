@@ -44,7 +44,7 @@
 				@if (isEdit == false) {
 					<button class='interest-button' *ngFor="let item of interests" [disabled]='true'>{{item}}</button>
 					@if (interests.length == 0 && user == username) {
-						<div style="padding: 5px 0 10px">No interests yet. Please add some!</div>
+						<div style="padding: 5px 0 10px">No interests yet.</div>
 					}
 				} @else {
 					<button class='interest-button' *ngFor="let item of interests">{{item}} <span class='remove-icon' (click)="handleChangeInterests('remove', item)">&#10006;</span></button>
@@ -69,7 +69,7 @@
 					<div class='fandoms-column-header'>Following <span style="font-size: 18px;">({{subscribed.length}})</span></div>
 					<div class="list">
 						@if (subscribed.length == 0 && user == username) {
-							<div style="padding: 5px 0 10px">Not following any fandoms yet. Please follow some!</div>
+							<div style="padding: 5px 0 10px">Not following any fandoms yet.</div>
 						} @else {
 							<div *ngFor="let fandom of subscribed">
 								<a class='list-item' (click)='toFandomPg(fandomval.value)'>
@@ -84,7 +84,7 @@
 					<div class='friends-column-header'>Friends <span style="font-size: 18px;">({{friends.length}})</span></div>
 					<div class="list">
 						@if (friends.length == 0 && user == username) {
-							<div style="padding: 5px 0 10px">No friends yet. Please add some!</div>
+							<div style="padding: 5px 0 10px">No friends yet.</div>
 						} @else {
 							<div *ngFor="let friend of friends">
 								<a class='list-item' (click)='toUserProfile(friendval.value)'>
