@@ -48,16 +48,13 @@ export class UserService {
 		return this.http.post(`${this.uri}/users/add`, user, { observe: 'response' });
 	}
 
-	updateUser(username, email, password, bio, age, image, interests, type, level, friends, pendingF, fandoms, subscribed) {
+	updateUser(username, email, password, bio, image, interests, friends, pendingF, fandoms, subscribed) {
 		const user = {
 			username: username,
 			email: email,
 			password: password,
 			profile: {
-				type: type,
-				level: level,
 				bio: bio,
-				age: age,
 				interests: interests,
 				friends: friends,
 				pending_friends: pendingF,

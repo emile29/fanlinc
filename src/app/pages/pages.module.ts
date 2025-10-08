@@ -16,6 +16,8 @@ import { FandomPageComponent } from './fandom/fandom-page.component';
 import { NewFandomComponent } from './new-fandom/new-fandom.component';
 import { CommentPgComponent } from './posts/comment-page.component';
 import { EditFandomComponent } from './edit-fandom/edit-fandom.component';
+import { ChangePasswordComponent } from './user-profile/change-password/change-password.component';
+import { PostBoxComponent } from '../components/post-box/post-box.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { EditFandomComponent } from './edit-fandom/edit-fandom.component';
     FandomPageComponent,
     NewFandomComponent,
     CommentPgComponent,
-    EditFandomComponent
+    EditFandomComponent,
+    ChangePasswordComponent,
+    PostBoxComponent
   ],
   imports: [
     CommonModule,
@@ -54,7 +58,8 @@ import { EditFandomComponent } from './edit-fandom/edit-fandom.component';
     FandomPageComponent,
     NewFandomComponent,
     CommentPgComponent,
-    EditFandomComponent
+    EditFandomComponent,
+    ChangePasswordComponent
   ]
 })
 export class PagesModule { }

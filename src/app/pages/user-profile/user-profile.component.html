@@ -1,59 +1,100 @@
 <div class='page-container'>
-	<div class='sections-container'>
-		<div class='left-section'>
-			<div class='left-section-upper-area'>
-				<div><img class='user-img' src="{{imagelink}}"></div>
-				<div><button class='friend-button' id='friendB' *ngIf='isShow' (click)="addFriendClicked(username)">{{friendB}}</button></div>
-				<div><button class='friend-button' id='friendBUnfriend' *ngIf='isUnfriend' (click)="addFriendClicked(username)">{{friendB}}</button></div>
-			</div>
-			<div><span class='username app-primary-color'>Username:</span> {{username}}</div>
-			<div><span class='email app-primary-color'>Email:</span> {{email}}</div>
-			<div><span class='age app-primary-color'>Age:</span> {{age}}</div>
-			<p></p>
-			<div class='bio-header app-primary-color'>Bio:</div>
-			<textarea class='bio-box' #biotext value='{{bio}}' type="text" readonly></textarea>
-			<div class='interests-container'>
-				<div class='interest-header app-primary-color'>Interests: </div>
-				<button class='interest-button' *ngFor="let item of interests" [disabled]='true'>{{item}}</button>
+	<div class="edit-row">
+		@if (user == username) {
+			<button class="btn change-password-btn" (click)="redirectToChangePassword()">CHANGE PASSWORD</button>
+			@if (isEdit == false) {
+				<button class="btn" (click)="isEdit = !isEdit">EDIT PROFILE</button>
+			} @else {
+				<button class="btn save-changes-btn" (click)="saveChanges()">SAVE CHANGES</button>
+				<button class="btn cancel-changes-btn" (click)="cancelChanges()">CANCEL</button>
+			}
+		}
+	</div>
+
+	<div class="paper top-section">
+		<div class="left">
+			<div class="profile-image-container">
+				<img class='user-img' src="{{imagelink}}">
+				@if (user == username && isEdit) {
+					<div class="image-overlay" (click)="changeProfilePicture()">
+						<div class="pencil-icon"><i class="fa fa-pencil"></i></div>
+						<div class="overlay-text">Edit Photo</div>
+					</div>
+				}
 			</div>
 		</div>
+		<div class="right">
+			<div class='username'>u/{{username}}</div>
+			@if (isEdit == false) {
+				<div class='email'>{{email}}</div>
+				<textarea *ngIf="!bio" class='bio-box-empty' #biotext type="text" placeholder="Enter bio here" readonly></textarea>
+				<textarea *ngIf="bio" class='bio-box' #biotext value='{{bio}}' type="text" readonly></textarea>
+			}
+			@else {
+				<input class='email-edit' [(ngModel)]="email">
+				<textarea class='bio-box-edit' #biotext [(ngModel)]="bio" placeholder="Enter bio here" type="text"></textarea>
+			}
+		</div>
+	</div>
 
-		<div class='main-section'>
-			<div class='user-type-box'>
+	<div class="main-section">
+		<div class="main-section-left">
+			<div class='paper interests-container'>
+				<div class='interest-header app-primary-color'>Interests</div>
+				@if (isEdit == false) {
+					<button class='interest-button' *ngFor="let item of interests" [disabled]='true'>{{item}}</button>
+					@if (interests.length == 0 && user == username) {
+						<div style="padding: 5px 0 10px">No interests yet. Please add some!</div>
+					}
+				} @else {
+					<button class='interest-button' *ngFor="let item of interests">{{item}} <span class='remove-icon' (click)="handleChangeInterests('remove', item)">&#10006;</span></button>
+					<div style="margin-top: 10px;">
+						<input placeholder="Enter interest" #interestInput><button class="interest-add-btn" (click)="handleChangeInterests('add', interestInput.value)">Add</button>
+					</div>
+				}
+			</div>
+			<!-- <div class='user-type-box'>
 				<span style='margin-right: 15px;'>
 					<b>type: </b><button class='type-button' [disabled]='true'>{{type}}</button>
 				</span>
 				<span>
 					<b>level: </b><button class='level-button' [disabled]='true'>{{level}}</button>
 				</span>
-			</div>
-			<br>
+			</div> -->
+		</div>
 
-			<div class='main-section-columns-container'>
+		<div class="main-section-right">
+			<div class='paper columns-container'>
 				<div class='fandoms-column'>
-					<div><span class='fandoms-column-header app-primary-color'>Following</span></div>
+					<div class='fandoms-column-header'>Following <span style="font-size: 18px;">({{subscribed.length}})</span></div>
 					<div class="list">
-						<a class='list-item' *ngFor="let fandom of fandoms" (click)='toFandomPg(fandomval.value)'>
-							<input style="display: none;" #fandomval value="{{fandom}}">{{fandom}}
-						</a>
+						@if (subscribed.length == 0 && user == username) {
+							<div style="padding: 5px 0 10px">Not following any fandoms yet. Please follow some!</div>
+						} @else {
+							<div *ngFor="let fandom of subscribed">
+								<a class='list-item' (click)='toFandomPg(fandomval.value)'>
+									<input style="display: none;" #fandomval value="{{fandom}}">f/{{fandom}}
+								</a>
+							</div>
+						}
 					</div>
 				</div>
 
 				<div class='friends-column'>
-					<div><span class='friends-column-header app-primary-color'>Friends</span></div>
+					<div class='friends-column-header'>Friends <span style="font-size: 18px;">({{friends.length}})</span></div>
 					<div class="list">
-						<a class='list-item' *ngFor="let friend of friends" (click)='toUserProfile(friendval.value)'>
-							<input style="display: none;" #friendval value="{{friend}}">{{friend}}
-						</a>
+						@if (friends.length == 0 && user == username) {
+							<div style="padding: 5px 0 10px">No friends yet. Please add some!</div>
+						} @else {
+							<div *ngFor="let friend of friends">
+								<a class='list-item' (click)='toUserProfile(friendval.value)'>
+									<input style="display: none;" #friendval value="{{friend}}">u/{{friend}}
+								</a>
+							</div>
+						}
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<div class='page-footer' *ngIf="!isShow && !isUnfriend">
-		<hr>
-		<button class='edit-button' mdbBtn color="info" #edit (click)="redirectToEditProfile()">edit profile</button>
-		<button class='logout-button' mdbBtn color="info" #save (click)="logout()">logout</button>
 	</div>
 </div>

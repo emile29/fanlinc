@@ -50,10 +50,10 @@ export class EditProfileComponent implements OnInit {
 					password: user.password,
 					email: user.email,
 					bio: user.profile.bio,
-					age: user.profile.age,
+					// age: user.profile.age,
 					image: user.image,
-					type: user.profile.type,
-					level: user.profile.level
+					// type: user.profile.type,
+					// level: user.profile.level
 				});
 				this.friends = user.profile.friends;
 				this.pendingFriends = user.profile.pending_friends;
@@ -112,11 +112,11 @@ export class EditProfileComponent implements OnInit {
 				formValue.email,
 				formValue.password,
 				formValue.bio,
-				formValue.age,
+				// formValue.age,
 				formValue.image,
 				this.interests,
-				formValue.type,
-				formValue.level,
+				// formValue.type,
+				// formValue.level,
 				this.friends,
 				this.pendingFriends,
 				this.fandoms,

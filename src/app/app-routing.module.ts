@@ -14,6 +14,7 @@ import { FandomPageComponent } from './pages/fandom/fandom-page.component';
 import { NewFandomComponent } from './pages/new-fandom/new-fandom.component';
 import { CommentPgComponent } from './pages/posts/comment-page.component';
 import { EditFandomComponent } from './pages/edit-fandom/edit-fandom.component';
+import { ChangePasswordComponent } from './pages/user-profile/change-password/change-password.component';
 
 const routes: Routes = [
 	{ path: 'editprofile', component: EditProfileComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
 	{ path: 'login', component: LoginComponent },
 	{ path: 'register', component: RegisterComponent },
 	{ path: 'profile', component: UserProfileComponent },
+	{ path: 'change-password', component: ChangePasswordComponent },
 	{ path: 'page-not-found', component: PageNotFoundComponent },
 	{ path: 'fandoms', component: FandomsComponent },
 	{ path: 'fandom-page', component: FandomPageComponent },

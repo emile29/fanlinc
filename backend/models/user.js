@@ -24,20 +24,11 @@ const userSchema = new Schema({
 		subscribed: {
 			type: Array
 		},
-		level : {
-			type : String
-		},
-		type : {
-			type : String
-		},
 		friends : {
 			type : Array
 		},
 		bio : {
 			type : String
-		},
-		age : {
-			type : Number
 		},
 		interests : {
 			type : Array

@@ -1,0 +1,178 @@
+@import 'src/styles.scss';
+
+.page-container {
+	$border-color: #e5e7e9;
+	font-size: $base-font-size;
+	font-family: $base-font-family;
+	padding: 30px 20% 0;
+
+	@media screen and (max-width: 768px) {
+		padding: 30px 5% 0;
+		font-size: $base-font-size - 1px;
+	}
+
+	@media screen and (max-width: 425px) {
+		padding: 30px 3% 0;
+		font-size: $base-font-size - 1px;
+	}
+
+	.app-primary-color {
+		color: $primary-color;
+	}
+
+	.sections-container {
+		height: 80%;
+		display: flex;
+
+		.left-section {
+			width: 30%;
+
+			&-upper-area {
+				width: 55%;
+				text-align: center;
+				margin-bottom: 12px;
+
+				@media screen and (max-width: 768px) {
+					width: 65%;
+				}
+
+				@media screen and (max-width: 425px) {
+					width: 100%;
+				}
+
+				.user-img {
+					height: 130px;
+					width: 130px;
+					border-radius: 50%;
+
+					@media screen and (max-width: 425px) {
+						height: 100px;
+						width: 100px;
+					}
+				}
+
+				.friend-button {
+					margin-top: 12px;
+					@extend %ext-common-button;
+					background-color: $primary-color;
+					border: none;
+					border-radius: 3px;
+
+					&:hover {
+						background-color: #f39c12;
+					}
+				}
+			}
+
+			.bio-box {
+				width: 100%;
+				min-height: 60px;
+				margin-bottom: 15px;
+				overflow: hidden;
+				border-radius: 3px;
+				border-color: $border-color;
+				outline: none;
+				resize: vertical;
+			}
+
+			.interests-container {
+				width: 100%;
+
+				.interest-button {
+					@extend %ext-common-button;
+					background-color: $primary-color;
+					border-color: $primary-color;
+					border-width: .5px;
+					margin: 0 3px 3px 0;
+				}
+			}
+		}
+
+		.main-section {
+			width: 70%;
+			display: inline-block;
+			margin-left: 20px;
+
+			.user-type-box {
+				padding: 12px;
+				width: max-content;
+				background-color: #fdebd0;
+				border-radius: 3px;
+				box-shadow: $box-shadow;
+
+				@media screen and (max-width: 425px) {
+					padding: 8px;
+				}
+
+				.type-button, .level-button {
+					@extend %ext-common-button;
+					background-color: $secondary-color;
+					border-color: $secondary-color;
+					padding: 0 7px;
+				}
+			}
+
+			&-columns-container {
+				display: flex;
+
+				.fandoms-column, .friends-column {
+					width: 50%;
+
+					.list {
+						display: grid;
+						padding: 0px 4px;
+						border-radius: 3px;
+						border: solid 1px $border-color;
+						max-height: 60vh;
+						overflow: auto;
+
+						&-item {
+							padding: 10px 15px;
+							border-style: none;
+
+							&:not(:last-child) {
+								border: solid 1px $border-color;
+								border-width: 0 0 .5px 0;
+							}
+
+							&:hover {
+								background-color: $border-color;
+							}
+						}
+					}
+				}
+
+				.friends-column {
+					margin-left: 15px;
+				}
+			}
+		}
+	}
+
+	.page-footer {
+		padding-bottom: 18px;
+		width: 60%;
+		bottom: 0;
+		position: absolute;
+		text-align: center;
+
+		@media screen and (max-width: 768px) {
+			width: 90%;
+		}
+
+		@media screen and (max-width: 425px) {
+			width: 94%;
+		}
+
+		.edit-button, .logout-button {
+			padding: 4px 8px;
+			font-size: 12px;
+			box-shadow: $box-shadow;
+			border-style: none;
+
+			&:hover {
+				color: grey;
+			}
+		}
+	}
+}

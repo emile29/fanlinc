@@ -55,7 +55,7 @@ class UserDBDriver {
 		try {
 			const user = await userSchema.updateOne({username: req.params.username}, req.body);
 			if (user.modifiedCount === 0) {
-				res.status(404).send("User '" + req.params.username + "' not found");
+				res.status(200).send("No changes were made to profile::" + req.params.username);
 			} else {
 				res.status(200).send(user);
 			}
