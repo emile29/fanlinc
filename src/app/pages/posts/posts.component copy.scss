@@ -92,7 +92,7 @@
 	}
 
 	.page-content-container {
-		// background: $page-background-color;
+		background: $page-background-color;
 		padding: $main-padding;
 
 		@media screen and (max-width: 768px) {
@@ -100,76 +100,156 @@
 			padding-right: 3%;
 		}
 
+		.scrollmenu {
+			&-header {
+				margin-bottom: 10px;
+				font-size: $base-font-size + 1px;
+
+				.view-all-button {
+					@extend %ext-common-button;
+					background: $primary-color;
+					border-color: $primary-color;
+					padding: 0px 4px;
+					line-height: 16px;
+					float: right;
+
+					&:hover {
+						color: grey;
+					}
+				}
+			}
+
+			&-container {
+				background-color: white;
+				overflow-x: auto;
+				width: 100%;
+				border-radius: 3px;
+				box-shadow: $box-shadow;
+
+				a {
+					display: inline-block;
+					color: white;
+					text-align: center;
+					padding: 14px;
+					text-decoration: none;
+
+					&:hover {
+						background-color: $page-background-color;
+					}
+				}
+			}
+
+			&-content-fandom {
+				&-img {
+					width: 100px;
+					height: 100px;
+				}
+
+				&-name {
+					text-align: center;
+				}
+			}
+		}
+
 		.post-section-headers {
-			width: 85%;
+			width: 100%;
 			margin: 18px 0 10px 0;
 			font-size: $base-font-size + 1px;
-			display: flex;
-			justify-content: space-between;
 
 			.header-container {
 				text-align: left;
-				font-size: $page-header-font-size;
-				font-weight: bold;
-			}
+				font-size: $base-font-size + 1px;
 
-			.sort-dropdown-container {
-				.btn {
-					font-size: $base-font-size;
-					box-shadow: $box-shadow;
+				.buttons-container {
+					float: right;
+					display: flex;
 
-					&.btn-outline-primary {
-						color: $textbox-background-color;
-						border-color: #c9cccd;
-						background-color: white;
+					.create-post-button {
+						@extend %ext-common-button;
+						background-color: $secondary-color;
+						border-color: $secondary-color;
+						@media screen and (max-width: 425px) {
+							height: 22px;
+						}
 
 						&:hover {
-							color: white;
-							background-color: $third-color;
-							border-color: $third-color;
-						}
-
-						&:focus {
-							color: white;
-							background-color: $third-color;
-							border-color: $third-color;
-							box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-						}
-
-						&:not(:disabled):not(.disabled):active {
-							color: white;
-							background-color: $third-color;
-							border-color: $third-color;
-						}
-
-						&::after {
-							display: none;
+							color: grey;
 						}
 					}
 
-					i.fas {
-						margin-left: 8px;
-						font-size: 0.8em;
-					}
-				}
-
-				.dropdown-menu {
-					box-shadow: $box-shadow;
-					border: 1px solid #c9cccd;
-					border-radius: 3px;
-
-					.dropdown-item {
-						font-size: $base-font-size;
-
-						&:hover {
-							background-color: $page-background-color;
-							color: $textbox-background-color;
+					.sort-dropdown-button-container {
+						@media screen and (max-width: 425px) {
+							margin-top: -1px;
 						}
 
-						&:active {
+						.sort-dropdown-button {
+							@extend %ext-common-button;
+							margin-left: 10px;
 							background-color: $third-color;
-							color: white;
+							border-color: $third-color;
+
+							&:hover {
+								color: grey;
+							}
+
+							@media screen and (max-width: 425px) {
+								margin-left: 6px;
+								height: 22px;
+							}
 						}
+
+						.sort-dropdown-items-container {
+							font-size: $base-font-size - 1px;
+							padding: 5px 10px 8px 10px;
+							min-width: 140px;
+
+							.recent-filter-container, .pop-filter-container {
+								display: flex;
+
+								div:last-child > input {
+									margin: 3px 0 0 5px;
+								}
+							}
+
+							.fandom-filter-dropdown-container {
+								.fandom-filter-dropdown-button {
+									@extend %ext-common-button;
+									margin-top: 4px;
+									color: $textbox-background-color;
+									background-color: white;
+									box-shadow: none;
+
+									&:hover {
+										border-color: $third-color;
+									}
+								}
+
+								.fandom-filter-dropdown-items-container {
+									max-height: 300px;
+									overflow: auto;
+
+									.fandom-filter-dropdown-item {
+										font-size: $base-font-size;
+									}
+								}
+							}
+
+							.apply-button {
+								@extend %ext-common-button;
+								background-color: $third-color;
+								border: none;
+								margin-top: 8px;
+								padding: 2px 5px;
+
+								&:hover {
+									color: $third-color;
+								}
+							}
+						}
+					}
+
+					@media screen and (min-width: 769px) {
+						display: none;
 					}
 				}
 			}
@@ -180,7 +260,7 @@
 			margin: 0;
 
 			.post-section-content-container {
-				width: 85%;
+				width: 75%;
 
 				@media screen and (max-width: 768px) {
 					width: 100%;

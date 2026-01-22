@@ -38,6 +38,7 @@ export class PostsComponent implements OnInit{
 	checkPopularity = false;
 	checkMostRecent = false;
 	password = '';
+	selectedSortOption = 'Most Recent';
 
 	constructor(private r: Renderer2, private route: ActivatedRoute, private userService:UserService,
 				private fandomService: FandomService, private router: Router, private postService:PostService,
@@ -55,6 +56,7 @@ export class PostsComponent implements OnInit{
 				if (res.status == 200) {
 					this.posts = res.body;
 					if (this.route.snapshot.queryParamMap.get('sort') == 'popularity') {
+						this.selectedSortOption = 'Most Popular';
 						if (this.route.snapshot.queryParamMap.get('fandom')) {
 							this.postHeader = 'Most Popular posts related to ' + this.route.snapshot.queryParamMap.get('fandom');
 							this.sortByFandomImp(this.route.snapshot.queryParamMap.get('fandom'), 'popularity');
@@ -65,6 +67,7 @@ export class PostsComponent implements OnInit{
 						}
 					}
 					else if (this.route.snapshot.queryParamMap.get('sort') == 'most-recent') {
+						this.selectedSortOption = 'Most Recent';
 						if (this.route.snapshot.queryParamMap.get('fandom')) {
 							this.postHeader = 'Most Recent posts related to ' + this.route.snapshot.queryParamMap.get('fandom');
 							this.sortByFandomImp(this.route.snapshot.queryParamMap.get('fandom'), 'most-recent');
@@ -353,6 +356,15 @@ export class PostsComponent implements OnInit{
 		}
 		else {
 			alert("That's not your post!!");
+		}
+	}
+
+	onSortChange(option: string) {
+		this.selectedSortOption = option;
+		if (option === 'Most Popular') {
+			this.sortByPopularityImp();
+		} else if (option === 'Most Recent') {
+			this.sortByMostRecentImp();
 		}
 	}
 

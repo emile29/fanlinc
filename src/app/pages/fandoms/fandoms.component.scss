@@ -1,7 +1,7 @@
 @import 'src/styles.scss';
 
 .page-container {
-	padding: 30px 15%;
+	padding: $main-padding;
 	font-family: $base-font-family;
 	font-size: $base-font-size;
 
@@ -16,6 +16,7 @@
 	.page-header {
 		text-align: left;
 		font-size: $page-header-font-size;
+		margin: 18px 0 10px 0;
 
 		.create-fandom-button-container {
 			float: right;
@@ -46,6 +47,7 @@
 			width: 78%;
 			display: flex;
 			flex-wrap: wrap;
+			padding-top: 6px;
 
 			@media screen and (max-width: 768px) {
 				width: 100%;

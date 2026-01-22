@@ -1,7 +1,7 @@
 <div class='page-container'>
 	<div class="edit-row">
 		@if (user == username) {
-			<button class="btn change-password-btn" (click)="redirectToChangePassword()">CHANGE PASSWORD</button>
+			<button class="btn-2 change-password-btn" (click)="redirectToChangePassword()">CHANGE PASSWORD</button>
 			@if (isEdit == false) {
 				<button class="btn" (click)="isEdit = !isEdit">EDIT PROFILE</button>
 			} @else {

@@ -91,7 +91,7 @@ $third-color: #5dade2;
 $textbox-background-color: #626567;
 $box-shadow: .5px 1px 2px #c9cccd;
 $page-background-color: #eaeded;
-$main-padding: 1em 15% 3em 15%;
+$main-padding: 0 15% 3em 15%;
 $base-font-size: 14px;
 $page-header-font-size: 26px;
 // $base-font-family: Quicksand;
@@ -99,6 +99,8 @@ $base-font-family: var(--font-family-base);
 $link-hover-color: #007bff;
 $common-radius: 8px;
 $common-box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px -1px;
+$common-box-shadow-2: 0 2px 4px rgba(0, 0, 0, 0.1);
+$common-box-shadow-3: .5px 1px 2px #c9cccd;
 
 %ext-common-button{
 	color: white;
@@ -115,7 +117,7 @@ $common-box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 2px -1px;
 .paper {
   background-color: white;
   border-radius: $common-radius;
-	box-shadow: $common-box-shadow;
+	box-shadow: $common-box-shadow-3;
 }
 
 button {
@@ -126,11 +128,37 @@ button {
 .btn {
   padding: 8px 16px;
   background-color: $primary-color;
+  border: solid .8px $primary-color;
   color: white;
   cursor: pointer;
 
   &:hover {
-    background-color: $primary-color;
+    border: solid .8px black;
+  }
+}
+
+.btn-2 {
+  padding: 8px 16px;
+  background-color: white;
+  border: solid .8px #007bff;
+  color: #007bff;
+  cursor: pointer;
+
+  &:hover {
+    color: black;
+    border: solid .8px black;
+  }
+}
+
+.btn-3 {
+  padding: 8px 16px;
+  background-color: $secondary-color;
+  border: solid .8px $secondary-color;
+  color: white;
+  cursor: pointer;
+
+  &:hover {
+    border: solid .8px black;
   }
 }
 

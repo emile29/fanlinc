@@ -1,9 +1,9 @@
 @import 'src/styles.scss';
 
 .page-container {
-	background: $page-background-color;
-	height: 100vh;
-	padding: 50px 30%;
+	// background: $page-background-color;
+	// height: 100vh;
+	padding: 50px 30% 0;
 	font-family: $base-font-family;
 	font-size: $base-font-size;
 
@@ -15,7 +15,7 @@
 		background: white;
 		padding: 20px 35px;
 		text-align: center;
-		border-radius: 3px;
+		border-radius: 8px;
 		box-shadow: $box-shadow;
 
 		.header {
@@ -26,7 +26,7 @@
 		.title, .tags, .image, .description {
 			padding: 5px 10px;
 			background: $page-background-color;
-			border-radius: 3px;
+			border-radius: 4px;
 			border: none;
 		}
 
@@ -34,11 +34,11 @@
 			width: 100%;
 		}
 
-		.tags, .image, .description, .submit-button {
+		.tags, .image, .description {
 			margin-top: 8px;
 		}
 
-		.title, .fandom-filter-dropdown-button, .tags, .image, .description, .submit-button {
+		.title, .fandom-filter-dropdown-button, .tags, .image, .description{
 			height: 32px;
 		}
 
@@ -58,8 +58,10 @@
 				.fandom-filter-dropdown-button {
 					background: $page-background-color;
 					border: none;
-					border-radius: 3px;
+					border-radius: 4px;
 					color: #626567;
+					padding-left: 10px;
+					padding-right: 10px;
 
 					&:hover {
 						color: $third-color;
@@ -82,13 +84,15 @@
 		}
 
 		.submit-button {
-			@extend %ext-common-button;
-			border-color: $secondary-color;
-			background-color: $secondary-color;
+			margin-top: 10px;
+			font-size: 16px;
+			// @extend %ext-common-button;
+			// border-color: $secondary-color;
+			// background-color: $secondary-color;
 
-			&:hover {
-				color: grey;
-			}
+			// &:hover {
+			// 	color: grey;
+			// }
 		}
 
 		.err-message {

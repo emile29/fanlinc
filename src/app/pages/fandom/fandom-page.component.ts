@@ -52,6 +52,7 @@ export class FandomPageComponent implements OnInit {
 	comments = [];
 	checkPopularity = false;
 	checkMostRecent = false;
+	selectedSortOption = 'Most Recent';
 
 	constructor(private userService: UserService, private route: ActivatedRoute, private router: Router,
 				private fandomService: FandomService, private session: LocalStorageService, private postService: PostService) { }
@@ -89,6 +90,7 @@ export class FandomPageComponent implements OnInit {
 								this.showFollowB = !this.showFollowB;
 								this.showB = !this.showB;
 								this.showAdminB = !this.showAdminB;
+								$('.fandom-image').css('backgroundImage', 'url(' + this.image + ')');
 							}
 						},
 						err => {
@@ -141,6 +143,15 @@ export class FandomPageComponent implements OnInit {
 		}
 		else {
 			alert('Select a sort option!!');
+		}
+	}
+
+	onSortChange(option: string) {
+		this.selectedSortOption = option;
+		if (option === 'Most Popular') {
+			this.sortByPopularityImp();
+		} else if (option === 'Most Recent') {
+			this.sortByMostRecentImp();
 		}
 	}
 

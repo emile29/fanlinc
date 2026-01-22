@@ -1,12 +1,12 @@
 <div class='page-container'>
 	<div class='page-content-container'>
-		<div class='top-section-container'>
-			<img class='fandom-image' src='{{image}}'>
+		<div class='paper top-section-container'>
+			<div class='fandom-image'></div>
 			<div class='info-area-container'>
 				<div class='info-area-headers'>
-					<div class='main-header'><b>{{name}} Fandom</b>
+					<div class='main-header'><b>f/{{name}}</b>
 						<span class='buttons-container'>
-							<span *ngIf="showAdminB"><button class='admin-button' [disabled]='true'>{{adminB}}</button></span>
+							<!-- <span *ngIf="showAdminB"><button class='admin-button' [disabled]='true'>{{adminB}}</button></span> -->
 							<span *ngIf="showFollowB"><button class='follow-button' (click)="subscribe(name)">{{followB}}</button></span>
 							<span *ngIf="showUnfollowB"><button class='unfollow-button' (click)="unsubscribe(name)">{{followB}}</button></span>
 							<span *ngIf="showB"><button class='fa fa-edit edit-button' (click)="toEditFandom()"></button></span>
@@ -14,7 +14,7 @@
 						</span>
 					</div>
 				</div>
-				<div>admin: <a class='admin' (click)='toUserProfile(admin)'>{{admin}}</a></div>
+				<!-- <div>admin: <a class='admin' (click)='toUserProfile(admin)'>{{admin}}</a></div> -->
 				<div>followers: {{subcount}}</div>
 				<div class='description'><b>{{desc}}</b></div>
 			</div>
@@ -22,10 +22,11 @@
 
 		<div class='posts-section-container'>
 			<div class='posts-section-headers'>
-				<div class='header-container'><span class='header'><b>{{postHeader}}</b></span>
-					<span class='buttons-container'>
-						<button class='create-post-button' (click)="toNewPost()">Create Post</button>
-						<div class="sort-dropdown-button-container" ngbDropdown>
+				<div class='header-container'>
+					<!-- <span class='header'><b>{{postHeader}}</b></span> -->
+					<div class='buttons-container'>
+						<button class='btn-3 create-post-button' (click)="toNewPost()">Create Post</button>
+						<!-- <div class="sort-dropdown-button-container" ngbDropdown>
 							<button class="sort-dropdown-button" ngbDropdownToggle>Sort by</button>
 							<div class="sort-dropdown-items-container" ngbDropdownMenu>
 								<div class='recent-filter-container'>
@@ -36,13 +37,29 @@
 								</div>
 								<div><button class="apply-button" (click)='toSortedPostPg()'>apply</button></div>
 							</div>
+						</div> -->
+						<div class="sort-dropdown-container">
+							<div ngbDropdown class="d-inline-block">
+								<button class="btn btn-outline-primary" id="sortDropdown" ngbDropdownToggle>
+									{{selectedSortOption}} <i class="fas fa-chevron-down"></i>
+								</button>
+								<div ngbDropdownMenu aria-labelledby="sortDropdown">
+									<button ngbDropdownItem (click)="onSortChange('Most Popular')">Most Popular</button>
+									<button ngbDropdownItem (click)="onSortChange('Most Recent')">Most Recent</button>
+								</div>
+							</div>
 						</div>
-					</span>
+					</div>
 				</div>
 			</div>
-			<hr class='sections-separator'>
+			<!-- <hr class='sections-separator'> -->
 
-			<div class='row post-box' *ngFor="let post of posts; let i = index;"><input style='display: none;' value='{{postIds[i]}}' #postId>
+			<app-post-box author="user1" timestamp="1759720889" title="TEST123"
+				content="TEST123" likes="5" fandom="fandom1"
+				[comments]="['comment1', 'comment2']"
+				fandomImage="https://t4.ftcdn.net/jpg/02/38/20/31/360_F_238203139_aHnKVip8dNgBgAeHk6UArg5zLPxH0gJQ.jpg">
+			</app-post-box>
+			<!-- <div class='row post-box' *ngFor="let post of posts; let i = index;"><input style='display: none;' value='{{postIds[i]}}' #postId>
 				<div class='column post-box-left-column'>
 					<input value='{{postAuthors[i]}}' #author style='display: none;'>
 					<a (click)="toUserProfile(author.value)">
@@ -82,7 +99,7 @@
 					<p id='{{postIds[i]}}' class='numVotes' style='text-align: center;'>{{postNumVotes[i]}}</p>
 					<div class='arrow-down' id='arrow-down' (click)='downvote(postId.value, numVotes.value)'></div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>

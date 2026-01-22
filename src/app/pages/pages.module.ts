@@ -18,6 +18,7 @@ import { CommentPgComponent } from './posts/comment-page.component';
 import { EditFandomComponent } from './edit-fandom/edit-fandom.component';
 import { ChangePasswordComponent } from './user-profile/change-password/change-password.component';
 import { PostBoxComponent } from '../components/post-box/post-box.component';
+import { NgbDropdownModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,9 @@ import { PostBoxComponent } from '../components/post-box/post-box.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgbModule,
+    NgbDropdownModule
   ],
   exports: [
     RegisterComponent,

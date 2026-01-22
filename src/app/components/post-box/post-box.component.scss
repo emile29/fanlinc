@@ -1,0 +1,209 @@
+.post-box {
+  background-color: white;
+  border: 1px solid #e1e8ed;
+  border-radius: 8px;
+  margin: 16px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.post-header {
+  padding: 16px 16px 0;
+  display: flex;
+  justify-content: space-between;
+
+  .col1 {
+    display: flex;
+
+    .fandom-img {
+      height: 42px;
+      width: 42px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .fandom {
+      color: #333;
+      font-weight: bold;
+    }
+
+    .author-name {
+      color: #333;
+    }
+  }
+
+  .col2 {
+    .timestamp {
+      font-size: 12px;
+      color: #666;
+    }
+  }
+}
+
+.post-content {
+  padding: 16px;
+
+  .post-title {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  .post-text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #444;
+  }
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 8px 16px;
+  border-top: 1px solid #f0f0f0;
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: #666;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    i {
+      font-size: 16px;
+    }
+  }
+
+  .vote-section {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    .vote-count {
+      min-width: 30px;
+      text-align: center;
+      font-weight: 600;
+      color: #333;
+      // margin: 0 2px;
+    }
+  }
+
+  .upvote-btn, .downvote-btn {
+    padding: 6px 8px;
+
+    &:hover {
+      background-color: #f8f9fa;
+    }
+
+    i {
+      font-size: 23px;
+    }
+  }
+
+  .upvote-btn {
+    padding-top: 10px;
+
+    &:hover {
+      color: #ff6b35;
+      background-color: rgba(255, 107, 53, 0.1);
+    }
+
+    &.active {
+      color: #ff6b35;
+      background-color: rgba(255, 107, 53, 0.1);
+    }
+  }
+
+  .downvote-btn {
+    padding-bottom: 7px;
+
+    &:hover {
+      color: #7c4dff;
+      background-color: rgba(124, 77, 255, 0.1);
+    }
+
+    &.active {
+      color: #7c4dff;
+      background-color: rgba(124, 77, 255, 0.1);
+    }
+  }
+
+  .comment-btn, .share-btn {
+    i {
+      margin-right: 2px;
+    }
+  }
+
+  .comment-btn {
+    &:hover {
+      color: #2196f3;
+      background-color: rgba(33, 150, 243, 0.1);
+    }
+  }
+
+  .share-btn {
+    &:hover {
+      color: #4caf50;
+      background-color: rgba(76, 175, 80, 0.1);
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .post-box {
+    margin: 12px 0;
+    border-radius: 6px;
+  }
+
+  .post-header,
+  .post-content,
+  .post-actions {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .post-actions {
+    .action-btn {
+      padding: 6px 8px;
+      font-size: 12px;
+
+      span {
+        display: none;
+      }
+
+      i {
+        font-size: 14px;
+      }
+    }
+
+    .vote-section {
+      .upvote-btn, .downvote-btn {
+        padding: 4px 6px;
+      }
+
+      .vote-count {
+        font-size: 12px;
+        min-width: 20px;
+      }
+    }
+  }
+}

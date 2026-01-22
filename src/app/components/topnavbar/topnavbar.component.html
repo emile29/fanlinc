@@ -16,10 +16,10 @@
     </div>
 
 	 <div class="navbar-end">
-        <ng-container *ngIf="!user">
+        <!-- <ng-container *ngIf="!user">
           <a [routerLink]="['/login']" class="nav-link">Login</a>
           <a [routerLink]="['/register']" class="nav-link">Register</a>
-        </ng-container>
+        </ng-container> -->
 
         <!-- <ng-container *ngIf="user">
           <a [routerLink]="['/profile']"
@@ -27,6 +27,9 @@
           class="nav-link">Profile</a>
           <button (click)="logout()" class="nav-link">Logout</button>
         </ng-container> -->
+
+        <button class="btn-2" [routerLink]="['/create-new-post']">Create Post</button>
+        <button class="btn-2" [routerLink]="['/create-new-fandom']">Create Fandom</button>
 
         <!-- user icon section that toggles a dropdown menu on click -->
         <div class="user-section" *ngIf="user" display="dynamic" ngbDropdown>

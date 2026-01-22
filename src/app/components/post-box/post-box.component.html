@@ -1,0 +1,44 @@
+<div class="post-box">
+  <div class="post-header">
+    <div class="col1">
+      <div>
+        <img class="fandom-img" [src]="fandomImage" alt="Fandom Image">
+      </div>
+      <div>
+        <div class="fandom">f/{{ fandom }}</div>
+        <div class="author-name">{{ author }}</div>
+      </div>
+    </div>
+    <div class="col2">
+      <div class="timestamp">{{ timestamp | date:'medium' }}</div>
+    </div>
+  </div>
+
+  <div class="post-content">
+    <h3 class="post-title" *ngIf="title">{{ title }}</h3>
+    <p class="post-text">{{ content }}</p>
+    <img *ngIf="image" class="post-image" [src]="image" alt="Post Image">
+  </div>
+
+  <div class="post-actions">
+    <div class="vote-section">
+      <button class="action-btn upvote-btn" [class.active]="userVote === 'up'" (click)="onUpvote()">
+        <i class="fas fa-caret-up"></i>
+      </button>
+      <span class="vote-count">{{ voteScore }}</span>
+      <button class="action-btn downvote-btn" [class.active]="userVote === 'down'" (click)="onDownvote()">
+        <i class="fas fa-caret-down"></i>
+      </button>
+    </div>
+
+    <button class="action-btn comment-btn" (click)="onComment()">
+      <i class="fas fa-comment"></i>
+      <span>{{ comments.length }}</span>
+    </button>
+
+    <button class="action-btn share-btn" (click)="onShare()">
+      <i class="fas fa-bookmark"></i>
+      <span>Save</span>
+    </button>
+  </div>
+</div>

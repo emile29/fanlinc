@@ -3,8 +3,7 @@
 .page-container {
 	font-size: $base-font-size;
 	font-family: $base-font-family;
-	padding: 0 22%;
-	background-color: $page-background-color;
+	padding: $main-padding;
 
 	@media screen and (max-width: 768px) {
 		padding: 0;
@@ -14,22 +13,29 @@
 		width: 100%;
 		height: 100vh;
 		padding: 18px 20px 20px 20px;
-		background-color: white;
+		// background-color: white;
 
 		.top-section-container {
-			max-height: 300px;
-			display: flex;
+			// max-height: 300px;
+			// display: flex;
 			margin-bottom: 24px;
+			background-color: white;
+			border-radius: 12px;
+			box-shadow: $common-box-shadow-2;
 
 			.fandom-image {
-				max-width: 40%;
-				max-height: 300px;
-				border-radius: 3px;
+				// max-width: 40%;
+				// max-height: 300px;
+				// border-radius: 3px;
+				height: 240px;
+				width: 100%;
+				background-repeat: repeat-x;
+				border-radius: 12px 12px 0 0;
 			}
 
 			.info-area-container {
 				min-width: 60%;
-				padding-left: 16px;
+				padding: 8px 20px 16px;
 
 				.info-area-headers {
 					text-align: left;
@@ -55,6 +61,10 @@
 								&:hover {
 									color: $third-color;
 								}
+							}
+
+							.edit-button, .delete-button {
+								margin-top: 2px;
 							}
 						}
 					}
@@ -86,21 +96,86 @@
 					font-size: $base-font-size + 1px;
 
 					.buttons-container {
-						float: right;
 						display: flex;
+						justify-content: flex-end;
+						align-items: center;
 
 						.create-post-button {
-							@extend %ext-common-button;
-							background-color: $secondary-color;
-							border-color: $secondary-color;
-							height: 24px;
+							padding: 7px 14px;
+							// @extend %ext-common-button;
+							// background-color: $secondary-color;
+							// border-color: $secondary-color;
+							// height: 24px;
 
-							@media screen and (max-width: 425px) {
-								height: 22px;
+							// @media screen and (max-width: 425px) {
+							// 	height: 22px;
+							// }
+
+							// &:hover {
+							// 	color: grey;
+							// }
+						}
+
+						.sort-dropdown-container {
+							margin-left: 12px;
+
+							.btn {
+								font-size: $base-font-size;
+								box-shadow: $box-shadow;
+
+								&.btn-outline-primary {
+									color: $textbox-background-color;
+									border-color: #c9cccd;
+									background-color: white;
+
+									&:hover {
+										color: white;
+										background-color: $third-color;
+										border-color: $third-color;
+									}
+
+									&:focus {
+										color: white;
+										background-color: $third-color;
+										border-color: $third-color;
+										box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+									}
+
+									&:not(:disabled):not(.disabled):active {
+										color: white;
+										background-color: $third-color;
+										border-color: $third-color;
+									}
+
+									&::after {
+										display: none;
+									}
+								}
+
+								i.fas {
+									margin-left: 8px;
+									font-size: 0.8em;
+								}
 							}
 
-							&:hover {
-								color: grey;
+							.dropdown-menu {
+								box-shadow: $box-shadow;
+								border: 1px solid #c9cccd;
+								border-radius: 3px;
+
+								.dropdown-item {
+									font-size: $base-font-size;
+
+									&:hover {
+										background-color: $page-background-color;
+										color: $textbox-background-color;
+									}
+
+									&:active {
+										background-color: $third-color;
+										color: white;
+									}
+								}
 							}
 						}
 

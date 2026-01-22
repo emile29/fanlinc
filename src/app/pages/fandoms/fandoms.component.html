@@ -1,6 +1,6 @@
 <div class='page-container'>
 	<div class='page-header'>
-		<b>All Fandoms</b>
+		<b>Fandoms</b>
 		<span class='create-fandom-button-container'>
 			<button class='create-fandom-button' (click)="toNewFandom()">Create Fandom</button>
 		</span>
@@ -25,7 +25,7 @@
 				<div><textarea class='description' id='description' #desc placeholder='Enter Fandom description'></textarea></div>
 				<!-- no need for admin as admin is the loggedin user -->
 
-				<button class='submit-button' id='submit' (click)='createFandom(title.value,desc.value)'>submit</button>
+				<button class='submit-button' id='submit' (click)='createFandom(title.value,desc.value)'>Submit</button>
 			</div>
 		</div>
 	</div>

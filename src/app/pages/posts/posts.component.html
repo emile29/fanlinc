@@ -1,125 +1,26 @@
 <div class='page-container'>
-	<div class='page-header'>
-		<span class='page-header-text'><b>Posts Feed</b></span>
-		<span class='page-header-right-container'>
-			<button class='create-post-button' (click)="toNewPost()">Create Post</button>
-
-			<button class='create-fandom-button' (click)="toNewFandom()">Create Fandom</button>
-
-			<!-- <input class='search-fandom-bar' type='text' placeholder='search fandoms'>
-			<button class='search-fandom-button' routerLink='/fandom-list' type="submit"><i class="fa fa-search"></i></button> -->
-		</span>
-	</div>
-
 	<div class='page-content-container'>
-		<div class='scrollmenu-header'>
-			<b>Top 10 Trending Fandoms</b>
-			<button class='view-all-button'routerLink='/fandoms'>view all</button>
-		</div>
-		<div class="scrollmenu-container">
-			<table>
-				<tr>
-					<th *ngFor="let image of fandomImages; let i = index">
-						<input value='{{fandomNames[i]}}' #fdImage style='display: none;'>
-						<a (click)="redirectToFandom(fdImage.value)"><img class='scrollmenu-content-fandom-img' src="{{image}}"></a>
-						<p class='scrollmenu-content-fandom-name' style='text-align: center;'>{{fandomNames[i]}}</p>
-					</th>
-				</tr>
-			</table>
-		</div>
-
 		<div class='post-section-headers'>
-			<div class='header-container'><span class='header'><b>{{postHeader}}</b></span>
-				<span class='buttons-container'>
-					<button class='create-post-button' (click)="toNewPost()">Create Post</button>
-					<div class="sort-dropdown-button-container" ngbDropdown>
-						<button class="sort-dropdown-button" ngbDropdownToggle>Sort by</button>
-						<div class="sort-dropdown-items-container" ngbDropdownMenu>
-							<div class='recent-filter-container'>
-								<div>Recent</div><div><input id='recent-filter' type='checkbox'></div>
-							</div>
-							<div class='pop-filter-container'>
-								<div>Popularity</div><div><input id='pop-filter' type="checkbox"></div>
-							</div>
-							<div class='fandom-filter-dropdown-container' ngbDropdown>
-								<button class="fandom-filter-dropdown-button" ngbDropdownToggle>fandom</button>
-								<div class='fandom-filter-dropdown-items-container' ngbDropdownMenu>
-									<a class='fandom-filter-dropdown-item' id="{{item}}" *ngFor="let item of fandomNames1" (click)="setFandom(fandom.value)" ngbDropdownItem>
-										{{item}}<input #fandom value="{{item}}" style='display: none;'>
-									</a>
-								</div>
-							</div>
-							<div><button class="apply-button" (click)='toSortedPostPg()'>apply</button></div>
-						</div>
+			<div class='header-container'>Posts</div>
+			<div class="sort-dropdown-container">
+				<div ngbDropdown class="d-inline-block">
+					<button class="btn btn-outline-primary" id="sortDropdown" ngbDropdownToggle>
+						{{selectedSortOption}} <i class="fas fa-chevron-down"></i>
+					</button>
+					<div ngbDropdownMenu aria-labelledby="sortDropdown">
+						<button ngbDropdownItem (click)="onSortChange('Most Popular')">Most Popular</button>
+						<button ngbDropdownItem (click)="onSortChange('Most Recent')">Most Recent</button>
 					</div>
-				</span>
+				</div>
 			</div>
 		</div>
-		<div class='row post-section-container'>
+		<div class='post-section-container'>
 			<div class='column post-section-content-container'>
-				<div class='row post-box' *ngFor="let post of posts; let i = index;"><input style='display: none;' value='{{postIds[i]}}' #postId>
-					<div class='column post-box-left-column'>
-						<input value='{{postAuthors[i]}}' #author style='display: none;'>
-						<a (click)="toUserProfile(author.value)">
-							<img class='user-img' src="{{userImages[i]}}">
-						</a>
-						<hr class='post-box-left-column-separator'>
-						<div>{{postAuthors[i]}}</div>
-					</div>
-
-					<div class='column post-box-main-column'>
-						<div class='post-box-main-column-header'>
-							<span class='post-box-main-column-header-fandom-link'>
-								f/<a (click)="redirectToFandom(postFandoms[i])" *ngIf="postFandoms[i] != 'none-selected'">{{postFandoms[i]}}</a>
-							</span>
-							<span class='post-box-main-column-header-right-section'>
-								<span style='margin-right: 8px;'>{{postTags[i]}}</span>
-								<span style='margin-right: 8px;'>{{postTimestamps[i]}}</span>
-								<span>
-									<a class='delete-post-button' (click)="deletePost(postId.value, author.value)"><i class='fa fa-trash'></i></a>
-								</span>
-							</span>
-						</div>
-						<h6><b>{{postTitles[i]}}</b></h6>
-						<div style='margin-bottom: 10px;'>{{postContents[i]}}</div>
-						<p *ngIf="postImages[i] != ''">
-							<img class='post-box-main-column-content-img' src="{{postImages[i]}}">
-						</p>
-						<button class="btn-outline num-comments-button" (click)="toCommentPg(postId.value)">
-							{{postNumComments[i]}} {{comments[i]}}
-						</button>
-					</div>
-
-					<div class='column post-box-separator'></div>
-					<div class='column post-box-right-column'>
-						<div class='arrow-up' id='arrow-up' (click)='upvote(postId.value, numVotes.value)'></div>
-						<input value='{{postNumVotes[i]}}' #numVotes style='display: none;'>
-						<p id='{{postIds[i]}}' class='numVotes' style='text-align: center;'>{{postNumVotes[i]}}</p>
-						<div class='arrow-down' id='arrow-down' (click)='downvote(postId.value, numVotes.value)'></div>
-					</div>
-				</div>
-			</div>
-
-			<div class='column sort-box'>
-				<b>Sort by:</b>
-
-				<div class="sort-box-content">
-					<div class='recent-filter-container'>
-						<div>Recent</div><div><input id='recent-filter-1' type='checkbox'></div>
-					</div>
-					<div class='pop-filter-container'>
-						<div>Popularity</div><div><input id='pop-filter-1' type="checkbox"></div>
-					</div>
-					<div class='fandom-filter-dropdown-container' ngbDropdown>
-						<button class="fandom-filter-dropdown-button" ngbDropdownToggle>fandom</button>
-						<div class='fandom-filter-dropdown-items-container' ngbDropdownMenu>
-							<a class='fandom-filter-dropdown-item' id="{{item}}" *ngFor="let item of fandomNames1" (click)="setFandom(fandom.value)" ngbDropdownItem>
-								{{item}}<input #fandom value="{{item}}" style='display: none;'>
-							</a>
-						</div>
-					</div>
-					<button class="apply-button" type='submit' (click)='toSortedPostPg()'>Apply</button>
-				</div>
+				<app-post-box author="user1" timestamp="1759720889" title="TEST123"
+					content="TEST123" likes="5" fandom="fandom1"
+					[comments]="['comment1', 'comment2']"
+					fandomImage="https://t4.ftcdn.net/jpg/02/38/20/31/360_F_238203139_aHnKVip8dNgBgAeHk6UArg5zLPxH0gJQ.jpg">
+				</app-post-box>
 			</div>
 		</div>
 	</div>
