@@ -54,6 +54,11 @@ export class PostService {
 		return this.http.post(`${this.uri}/posts/setNumVotes/${id}`, {numVotes}, {observe: 'response'});
 	}
 
+	votePost(id, username, vote) {
+		// vote: 'up' | 'down' | 'remove'
+		return this.http.post(`${this.uri}/posts/vote/${id}`, {username, vote}, {observe: 'response'});
+	}
+
 	updatePost(id, title, author, timestamp, numVotes) {
 		const body = {
 			title:title,

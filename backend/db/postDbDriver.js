@@ -77,6 +77,54 @@ class PostDBDriver {
 		}
 	}
 
+	async vote(req, res) {
+		try {
+			const id = new ObjectId(req.params.id);
+			const { username, vote } = req.body; // vote: 'up' | 'down'
+			if (!username) {
+				return res.status(400).send('username required');
+			}
+			const post = await postSchema.findById(id);
+			if (!post) {
+				return res.status(404).send("Post '" + req.params.id + "' not found");
+			}
+
+			const existingIndex = post.votes ? post.votes.findIndex(v => v.user === username) : -1;
+			const newVal = vote === 'up' ? 1 : (vote === 'down' ? -1 : 0);
+			let delta = 0;
+
+			if (existingIndex === -1) {
+				// no existing vote
+				if (newVal !== 0) {
+					post.votes = post.votes || [];
+					post.votes.push({ user: username, vote: newVal });
+					delta = newVal;
+				}
+			} else {
+				const existing = post.votes[existingIndex];
+				if (newVal === 0) {
+					// remove existing vote
+					delta = -existing.vote;
+					post.votes.splice(existingIndex, 1);
+				} else if (existing.vote === newVal) {
+					// toggle off
+					delta = -existing.vote;
+					post.votes.splice(existingIndex, 1);
+				} else {
+					// change vote
+					delta = newVal - existing.vote; // e.g., -1 -> +1 === 2
+					post.votes[existingIndex].vote = newVal;
+				}
+			}
+
+			post.numVotes = (post.numVotes || 0) + delta;
+			await post.save();
+			return res.status(200).json(post);
+		} catch (err) {
+			res.status(400).send(err.message);
+		}
+	}
+
 	async addComment(req, res) {
 		try {
 			const post = await postSchema.updateOne(

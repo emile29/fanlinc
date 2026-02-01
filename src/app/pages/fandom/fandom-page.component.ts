@@ -155,6 +155,15 @@ export class FandomPageComponent implements OnInit {
 		}
 	}
 
+	getFandomImage(name) {
+		for (let i = 0; i < this.fandoms.length; i++) {
+			if (this.fandoms[i].name == name) {
+				return this.fandoms[i].image;
+			}
+		}
+		return '';
+	}
+
 	sortByPopularityImp() {
 		let arr = [];
 		for (let i = 0; i < this.posts.length; i++) {

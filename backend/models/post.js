@@ -31,6 +31,11 @@ const postSchema = new Schema({
 		type : String,
 		required : true
 	}
+,
+	votes : [{
+		user: String,
+		vote: Number // 1 for upvote, -1 for downvote
+	}]
 });
 
 export default model('postSchema', postSchema);

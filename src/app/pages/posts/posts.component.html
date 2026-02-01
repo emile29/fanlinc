@@ -16,11 +16,20 @@
 		</div>
 		<div class='post-section-container'>
 			<div class='column post-section-content-container'>
-				<app-post-box author="user1" timestamp="1759720889" title="TEST123"
-					content="TEST123" likes="5" fandom="fandom1"
-					[comments]="['comment1', 'comment2']"
-					fandomImage="https://t4.ftcdn.net/jpg/02/38/20/31/360_F_238203139_aHnKVip8dNgBgAeHk6UArg5zLPxH0gJQ.jpg">
-				</app-post-box>
+				@for (post of posts; track post) {
+					<app-post-box
+						author="{{post.author}}"
+						timestamp="{{post.timestamp}}"
+						title="{{post.title}}"
+						content="{{post.content}}"
+						likes="{{post.numVotes}}"
+						postId="{{post._id}}"
+						[votes]="post.votes"
+						fandom="{{post.fandom}}"
+						[comments]="post.comments"
+						fandomImage="{{getFandomImage(post.fandom)}}">
+					</app-post-box>
+				}
 			</div>
 		</div>
 	</div>

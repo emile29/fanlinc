@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { PostService } from '../../post.service';
+import { LocalStorageService } from 'ngx-webstorage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-box',
@@ -10,52 +13,68 @@ export class PostBoxComponent implements OnInit {
   @Input() content: string = '';
   @Input() author: string = '';
   @Input() timestamp: Date | string = '';
-  @Input() upvotes: number = 0;
-  @Input() downvotes: number = 0;
+  @Input() likes: number = 0; // total score stored in DB (numVotes)
+  @Input() postId: string = '';
+  @Input() votes: any[] = [];
   @Input() fandom: string = '';
   @Input() image: string = '';
   @Input() fandomImage: string = '';
   @Input() comments: string[] = [];
 
   userVote: 'up' | 'down' | null = null;
+  currentUser: string = '';
 
-  constructor() { }
+  constructor(private postService: PostService, private session: LocalStorageService, private router: Router) { }
 
   ngOnInit(): void {
+    this.currentUser = this.session.retrieve('logged-in') || '';
+    if (this.votes && this.currentUser) {
+      const existing = this.votes.find(v => v.user === this.currentUser);
+      if (existing) {
+        this.userVote = existing.vote === 1 ? 'up' : 'down';
+      }
+    }
   }
 
   get voteScore(): number {
-    return this.upvotes - this.downvotes;
+    return this.likes;
   }
 
   onUpvote(): void {
-    if (this.userVote === 'up') {
-      // Remove upvote
-      this.upvotes--;
-      this.userVote = null;
-    } else {
-      // Add upvote (remove downvote if present)
-      if (this.userVote === 'down') {
-        this.downvotes--;
-      }
-      this.upvotes++;
-      this.userVote = 'up';
+    if (!this.currentUser) {
+      if (confirm('Sign in first!!')) { window.location.href = '/login'; }
+      return;
     }
+
+    const action = 'up';
+    this.postService.votePost(this.postId, this.currentUser, action).subscribe({
+      next: (res: any) => {
+        const body = res.body || res;
+        // body is the updated post
+        this.likes = body.numVotes;
+        const existing = body.votes ? body.votes.find(v => v.user === this.currentUser) : null;
+        this.userVote = existing ? (existing.vote === 1 ? 'up' : 'down') : null;
+      },
+      error: (err) => { console.error('Failed to vote', err); }
+    });
   }
 
   onDownvote(): void {
-    if (this.userVote === 'down') {
-      // Remove downvote
-      this.downvotes--;
-      this.userVote = null;
-    } else {
-      // Add downvote (remove upvote if present)
-      if (this.userVote === 'up') {
-        this.upvotes--;
-      }
-      this.downvotes++;
-      this.userVote = 'down';
+    if (!this.currentUser) {
+      if (confirm('Sign in first!!')) { window.location.href = '/login'; }
+      return;
     }
+
+    const action = 'down';
+    this.postService.votePost(this.postId, this.currentUser, action).subscribe({
+      next: (res: any) => {
+        const body = res.body || res;
+        this.likes = body.numVotes;
+        const existing = body.votes ? body.votes.find(v => v.user === this.currentUser) : null;
+        this.userVote = existing ? (existing.vote === 1 ? 'up' : 'down') : null;
+      },
+      error: (err) => { console.error('Failed to vote', err); }
+    });
   }
 
   onShare(): void {
@@ -66,5 +85,6 @@ export class PostBoxComponent implements OnInit {
   onComment(): void {
     // Implement comment functionality
     console.log('Comment on post:', this.title);
+    this.router.navigate(['/post-comments'], {queryParams: {postId: this.postId}});
   }
 }

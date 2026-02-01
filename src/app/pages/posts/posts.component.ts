@@ -55,6 +55,7 @@ export class PostsComponent implements OnInit{
 			res => {
 				if (res.status == 200) {
 					this.posts = res.body;
+					console.log(this.posts);
 					if (this.route.snapshot.queryParamMap.get('sort') == 'popularity') {
 						this.selectedSortOption = 'Most Popular';
 						if (this.route.snapshot.queryParamMap.get('fandom')) {
@@ -162,6 +163,15 @@ export class PostsComponent implements OnInit{
 		else {
 			alert('Select a sort option!!');
 		}
+	}
+
+	getFandomImage(name) {
+		for (let i = 0; i < this.fandoms.length; i++) {
+			if (this.fandoms[i].name == name) {
+				return this.fandoms[i].image;
+			}
+		}
+		return '';
 	}
 
 	sortByPopularityImp() {

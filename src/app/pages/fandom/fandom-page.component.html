@@ -54,11 +54,20 @@
 			</div>
 			<!-- <hr class='sections-separator'> -->
 
-			<app-post-box author="user1" timestamp="1759720889" title="TEST123"
-				content="TEST123" likes="5" fandom="fandom1"
-				[comments]="['comment1', 'comment2']"
-				fandomImage="https://t4.ftcdn.net/jpg/02/38/20/31/360_F_238203139_aHnKVip8dNgBgAeHk6UArg5zLPxH0gJQ.jpg">
-			</app-post-box>
+			@for (post of posts; track post) {
+				<app-post-box
+					author="{{post.author}}"
+					timestamp="{{post.timestamp}}"
+					title="{{post.title}}"
+					content="{{post.content}}"
+					likes="{{post.numVotes}}"
+					postId="{{post._id}}"
+					[votes]="post.votes"
+					fandom="{{post.fandom}}"
+					[comments]="post.comments"
+					fandomImage="{{image}}">
+				</app-post-box>
+			}
 			<!-- <div class='row post-box' *ngFor="let post of posts; let i = index;"><input style='display: none;' value='{{postIds[i]}}' #postId>
 				<div class='column post-box-left-column'>
 					<input value='{{postAuthors[i]}}' #author style='display: none;'>
