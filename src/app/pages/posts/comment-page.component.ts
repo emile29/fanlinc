@@ -4,6 +4,7 @@ import { PostService } from '../../post.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
 import { UserService } from '../../user.service';
+import { FandomService } from 'src/app/fandom.service';
 
 @Component({
 	selector: 'app-comment-page',
@@ -30,9 +31,11 @@ export class CommentPgComponent implements OnInit{
 	postNumComment:number;
 	postComments = [];
 	comments = '';
+	fandoms: any;
+	postVotes: any;
 
 	constructor(private userService: UserService, private router: Router, private route: ActivatedRoute,
-				private postService: PostService, private session: LocalStorageService) {}
+				private fandomService: FandomService, private postService: PostService, private session: LocalStorageService) {}
 
 	ngOnInit(): void {
 		this.user = this.session.retrieve('logged-in');
@@ -60,6 +63,7 @@ export class CommentPgComponent implements OnInit{
 					this.postFandom = this.post[0].fandom;
 					this.postComments = this.post[0].comments;
 					this.userImage = this.post[0].userImage;
+					this.postVotes = this.post[0].votes;
 				}
 			},
 			err => {
@@ -67,6 +71,26 @@ export class CommentPgComponent implements OnInit{
 				this.router.navigate(['/page-not-found']);
 			}
 		);
+		this.fandomService.getAllFandoms().subscribe(
+			res => {
+				if (res.status == 200) {
+					this.fandoms = res.body;
+				}
+			},
+			err => {
+				console.log(err);
+				this.router.navigate(['/page-not-found']);
+			}
+		);
+	}
+
+	getFandomImage(name) {
+		for (let i = 0; i < this.fandoms.length; i++) {
+			if (this.fandoms[i].name == name) {
+				return this.fandoms[i].image;
+			}
+		}
+		return '';
 	}
 
 	timeDifference(now, date2) {

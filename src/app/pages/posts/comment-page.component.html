@@ -2,7 +2,7 @@
 
 <div class='page-container'>
 	<div class='page-content-container'>
-		<div class='row post-box'><input value='{{postId}}' #postId style='display: none;'>
+		<!-- <div class='row post-box'><input value='{{postId}}' #postId style='display: none;'>
 			<div class='column post-box-left-column'>
 				<input value='{{postAuthor}}' #author style='display: none;'>
 				<a (click)="toUserProfile(author.value)">
@@ -46,7 +46,20 @@
 				<p id='numVote' style='text-align: center;'>{{postNumVote}}</p>
 				<div class='arrow-down' id="arrow-down" (click)='downvote()'></div>
 			</div>
-		</div>
+		</div> -->
+
+		<app-post-box
+			author="{{postAuthor}}"
+			timestamp="{{postTimestamp}}"
+			title="{{postTitle}}"
+			content="{{postContent}}"
+			likes="{{postNumVote}}"
+			postId="{{postId}}"
+			[votes]="postVotes"
+			fandom="{{postFandom}}"
+			[comments]="postComments"
+			fandomImage="{{getFandomImage(postFandom)}}">
+		</app-post-box>
 
 		<div class='comments-list-container'>
 			<div class='empty-state-message' *ngIf="postNumComment == 0">no comments</div>
@@ -57,6 +70,12 @@
 				<div class='comments-list-item-author'>
 					<input value='{{comment?.author}}' #sender style='display: none;'>
 					sent by: <a class='comment-author-username' (click)="toUserProfile(sender.value)">{{comment?.author}}</a>
+				</div>
+			</div>
+			<div class='new-comment-container'>
+				<textarea class='new-comment-box' #newCommentBox placeholder="Add a comment..."></textarea>
+				<div class='new-comment-send-button-container'>
+					<button class='btn-2 new-comment-send-button' type='submit' (click)='sendComment(newCommentBox.value)'>Send</button>
 				</div>
 			</div>
 		</div>
