@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { PostService } from '../../post.service';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './post-box.component.html',
   styleUrls: ['./post-box.component.scss']
 })
-export class PostBoxComponent implements OnInit {
+export class PostBoxComponent implements OnInit, OnChanges {
   @Input() title: string = '';
   @Input() content: string = '';
   @Input() author: string = '';
@@ -20,6 +20,7 @@ export class PostBoxComponent implements OnInit {
   @Input() image: string = '';
   @Input() fandomImage: string = '';
   @Input() comments: string[] = [];
+  @Input() numOfComments: number = 0;
 
   userVote: 'up' | 'down' | null = null;
   currentUser: string = '';
@@ -28,10 +29,24 @@ export class PostBoxComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentUser = this.session.retrieve('logged-in') || '';
+    console.log('votes',this.votes);
     if (this.votes && this.currentUser) {
       const existing = this.votes.find(v => v.user === this.currentUser);
       if (existing) {
         this.userVote = existing.vote === 1 ? 'up' : 'down';
+        console.log(this.userVote);
+      }
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['votes'] || changes['currentUser']) {
+      this.currentUser = this.session.retrieve('logged-in') || '';
+      if (this.votes && this.currentUser) {
+        const existing = this.votes.find(v => v.user === this.currentUser);
+        this.userVote = existing ? (existing.vote === 1 ? 'up' : 'down') : null;
+      } else {
+        this.userVote = null;
       }
     }
   }

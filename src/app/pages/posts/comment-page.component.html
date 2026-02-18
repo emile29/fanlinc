@@ -58,20 +58,47 @@
 			[votes]="postVotes"
 			fandom="{{postFandom}}"
 			[comments]="postComments"
+			numOfComments="{{postNumComment}}"
 			fandomImage="{{getFandomImage(postFandom)}}">
 		</app-post-box>
 
-		<div class='comments-list-container'>
+		<div class='comments-box'>
 			<div class='empty-state-message' *ngIf="postNumComment == 0">no comments</div>
-			<div class='comments-list-item-container' *ngFor="let comment of postComments">
-				<div class='comments-list-item-content'>
-					{{comment?.comment}}
+
+			<div class="comments-list-container">
+			<ng-template #recurse let-comments>
+				<div class='comments-list-item-container' *ngFor="let comment of comments">
+					<div class="comments-list-content-author-container">
+						<div class='comments-list-item-author'>
+							<a class='comment-author-image-link' (click)="toUserProfile(comment?.author?.username || comment?.author)">
+								<img class='comment-author-image' src="{{getCommentAuthorImage(comment?.author)}}">
+							</a>
+						</div>
+						<div class='comments-list-item-content'>
+							<div class="comment-author-content-top-container">
+								<span class="comment-author-username">
+									{{comment?.author?.username || comment?.author}}
+								</span>
+								{{comment?.content}}
+							</div>
+							<button class='reply-inline-button' (click)="toggleReplyBox(comment._id)">reply</button>
+							<div class='reply-inline-container' *ngIf="showReplyFor[comment._id]">
+								<textarea class='reply-inline-box' #rb placeholder="Reply..."></textarea>
+								<button class='btn-2 reply-send-button' (click)="sendReply(rb.value, comment._id)">Send</button>
+							</div>
+						</div>
+					</div>
+
+
+					<ng-container *ngIf="comment.replies && comment.replies.length">
+						<ng-container *ngTemplateOutlet="recurse; context: {$implicit: comment.replies}"></ng-container>
+					</ng-container>
 				</div>
-				<div class='comments-list-item-author'>
-					<input value='{{comment?.author}}' #sender style='display: none;'>
-					sent by: <a class='comment-author-username' (click)="toUserProfile(sender.value)">{{comment?.author}}</a>
-				</div>
+			</ng-template>
+
+			<ng-container *ngTemplateOutlet="recurse; context: {$implicit: postComments}"></ng-container>
 			</div>
+
 			<div class='new-comment-container'>
 				<textarea class='new-comment-box' #newCommentBox placeholder="Add a comment..."></textarea>
 				<div class='new-comment-send-button-container'>

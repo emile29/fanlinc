@@ -27,6 +27,7 @@
 						[votes]="post.votes"
 						fandom="{{post.fandom}}"
 						[comments]="post.comments"
+						numOfComments="{{post.totalComments || (post.comments || []).length}}"
 						fandomImage="{{getFandomImage(post.fandom)}}">
 					</app-post-box>
 				}

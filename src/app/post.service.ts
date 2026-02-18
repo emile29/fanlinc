@@ -43,11 +43,11 @@ export class PostService {
 	}
 
 	getPost(id) {
-		return this.http.get(`${this.uri}/posts/${id}`, {observe: 'response'});
+		return this.http.get(`${this.uri}/posts/${id}`);
 	}
 
-	addComment(id, newComment, author) {
-		return this.http.post(`${this.uri}/posts/addComment/${id}`, {newComment, author}, {observe: 'response'});
+	addComment(id, newComment, author, parentCommentId = null) {
+		return this.http.post(`${this.uri}/posts/addComment/${id}`, {newComment, author, parentCommentId}, {observe: 'response'});
 	}
 
 	setNumVotes(id, numVotes) {

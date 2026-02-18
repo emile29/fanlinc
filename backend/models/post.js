@@ -18,7 +18,14 @@ const postSchema = new Schema({
 	timestamp : {
 		type : String
 	},
-	comments : [],
+	comments : [{
+		type: Schema.Types.ObjectId,
+		ref: 'comment'
+	}],
+	totalComments: {
+		type: Number,
+		default: 0
+	},
 	numVotes : {
 		type : Number
 
@@ -38,4 +45,4 @@ const postSchema = new Schema({
 	}]
 });
 
-export default model('postSchema', postSchema);
+export default model('post', postSchema);

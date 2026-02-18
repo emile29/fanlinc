@@ -23,6 +23,7 @@ export class CommentPgComponent implements OnInit{
 	postId:string;
 	postTitle:string;
 	userImage = '';
+	commentUserImages: { [username: string]: string } = {};
 	postAuthor:string;
 	postContent:string;
 	postTimestamp :string;
@@ -30,7 +31,8 @@ export class CommentPgComponent implements OnInit{
 	postFandom:string;
 	postNumComment:number;
 	postComments = [];
-	comments = '';
+	showReplyFor: { [key: string]: boolean } = {};
+	// comments = '';
 	fandoms: any;
 	postVotes: any;
 
@@ -40,31 +42,23 @@ export class CommentPgComponent implements OnInit{
 	ngOnInit(): void {
 		this.user = this.session.retrieve('logged-in');
 		this.postService.getPost(this.route.snapshot.queryParamMap.get('postId')).subscribe(
-			res => {
-				if (res.status == 200) {
-					console.log(res.body);
-					this.post = res.body;
-					this.postTitle = this.post[0].title;
-					this.postContent = this.post[0].content;
-					if (this.post[0].image != null) {
-							this.postImage = this.post[0].image;
-					}
-					else {
-							this.postImage = '';
-					}
-					this.postAuthor = this.post[0].author;
-					this.postTag = this.post[0].tags;
-					this.postNumComment = this.post[0].comments.length;
-					if (this.post[0].comments.length <= 1) { this.comments = 'comment'; }
-					else { this.comments = 'comments'; }
-					this.postTimestamp = this.timeDifference((new Date().getTime()), this.post[0].timestamp);
-					this.postNumVote = this.post[0].numVotes;
-					this.postId = this.post[0]._id;
-					this.postFandom = this.post[0].fandom;
-					this.postComments = this.post[0].comments;
-					this.userImage = this.post[0].userImage;
-					this.postVotes = this.post[0].votes;
-				}
+			(post: any) => {
+				console.log('post',post);
+				this.post = post;
+				this.postTitle = this.post.title;
+				this.postContent = this.post.content;
+				this.postImage = this.post.image || '';
+				this.postAuthor = this.post.author;
+				this.postTag = this.post.tags;
+				this.postNumComment = (typeof this.post.totalComments === 'number') ? this.post.totalComments : (this.post.comments || []).length;
+				// this.comments = this.postNumComment <= 1 ? 'comment' : 'comments';
+				this.postTimestamp = this.timeDifference((new Date().getTime()), this.post.timestamp);
+				this.postNumVote = this.post.numVotes;
+				this.postId = this.post._id;
+				this.postFandom = this.post.fandom;
+				this.postComments = this.post.comments || [];
+				this.userImage = this.post.userImage;
+				this.postVotes = this.post.votes || [];
 			},
 			err => {
 				console.log(err);
@@ -91,6 +85,33 @@ export class CommentPgComponent implements OnInit{
 			}
 		}
 		return '';
+	}
+
+	/**
+	 * Returns the profile image URL for a comment author.
+	 * - Accepts either a username string or an author object with `username`/`image`.
+	 * - Uses a small in-memory cache to avoid repeated HTTP lookups.
+	 */
+	getCommentAuthorImage(author: any): string {
+		const defaultProfile = 'https://secure.gravatar.com/avatar/755ba87e0a9949e846b042a8ac44723e?s=600&d=mm&r=g';
+		const username = (author && (author.username || author)) || '';
+		if (!username) { return defaultProfile; }
+		if (author && author.image) { return author.image; }
+		if (this.commentUserImages[username]) { return this.commentUserImages[username]; }
+		// populate cache asynchronously; return default while loading
+		this.commentUserImages[username] = defaultProfile;
+		this.userService.getUserByUsername(username).subscribe(
+			(res: any) => {
+				try {
+					const img = res && res.body && res.body[0] && res.body[0].image ? res.body[0].image : defaultProfile;
+					this.commentUserImages[username] = img;
+				} catch (e) {
+					this.commentUserImages[username] = defaultProfile;
+				}
+			},
+			err => { this.commentUserImages[username] = defaultProfile; }
+		);
+		return defaultProfile;
 	}
 
 	timeDifference(now, date2) {
@@ -176,6 +197,21 @@ export class CommentPgComponent implements OnInit{
 		else {
 			alert('Comment something first!!');
 		}
+	}
+
+	toggleReplyBox(commentId: string) {
+		this.showReplyFor[commentId] = !this.showReplyFor[commentId];
+	}
+
+	sendReply(replyText: string, parentCommentId: string) {
+		if (!replyText || replyText.trim() === '') { alert('Reply something first!!'); return; }
+		this.postService.addComment(this.postId, replyText, this.session.retrieve('logged-in'), parentCommentId).subscribe(
+			res => {
+				console.log(res.body);
+				window.location.reload();
+			},
+			err => { console.log(err); }
+		);
 	}
 
 	redirectToFandom(fandom) {
