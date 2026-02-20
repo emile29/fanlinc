@@ -52,7 +52,8 @@ export class CommentPgComponent implements OnInit{
 				this.postTag = this.post.tags;
 				this.postNumComment = (typeof this.post.totalComments === 'number') ? this.post.totalComments : (this.post.comments || []).length;
 				// this.comments = this.postNumComment <= 1 ? 'comment' : 'comments';
-				this.postTimestamp = this.timeDifference((new Date().getTime()), this.post.timestamp);
+				// this.postTimestamp = this.timeDifference((new Date().getTime()), this.post.timestamp);
+				this.postTimestamp = this.post.timestamp;
 				this.postNumVote = this.post.numVotes;
 				this.postId = this.post._id;
 				this.postFandom = this.post.fandom;
