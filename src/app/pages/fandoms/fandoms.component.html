@@ -8,7 +8,9 @@
 	<div class='page-content-container'>
 		<div class='fandom-cards-section-container'>
 			<a class='view overlay fandom-card' *ngFor="let item of fandomNames; let i=index" (click)='toFandomPg(item)' id="{{item}}">
-				<img class='fandom-card-image' src='{{fandomImages[i]}}'>
+				<div class="fandom-card-image-container">
+					<img class='fandom-card-image' src='{{fandomImages[i]}}'>
+				</div>
 				<a class="mask flex-center rgba-orange-strong fandom-card-overlay">
 					<p class="white-text description"><b>{{fandomDesc[i]}}</b>
 						<br><br><b><i class='fa fa-user'></i> {{fandomSubcounts[i]}}</b>

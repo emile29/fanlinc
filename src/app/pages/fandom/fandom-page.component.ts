@@ -81,6 +81,7 @@ export class FandomPageComponent implements OnInit {
 					this.userService.getUserByUsername(this.user).subscribe(
 						res => {
 							console.log(res.body);
+							$('.fandom-image').css('backgroundImage', 'url(' + this.image + ')');
 							if ((res.body[0].profile.subscribed).includes(this.name) && this.user != '' && this.user != null) {
 								this.followB = 'unfollow';
 								this.showFollowB = !this.showFollowB;
@@ -90,7 +91,6 @@ export class FandomPageComponent implements OnInit {
 								this.showFollowB = !this.showFollowB;
 								this.showB = !this.showB;
 								this.showAdminB = !this.showAdminB;
-								$('.fandom-image').css('backgroundImage', 'url(' + this.image + ')');
 							}
 						},
 						err => {

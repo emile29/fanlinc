@@ -7,10 +7,10 @@
 					<div class='main-header'><b>f/{{name}}</b>
 						<span class='buttons-container'>
 							<!-- <span *ngIf="showAdminB"><button class='admin-button' [disabled]='true'>{{adminB}}</button></span> -->
-							<span *ngIf="showFollowB"><button class='follow-button' (click)="subscribe(name)">{{followB}}</button></span>
-							<span *ngIf="showUnfollowB"><button class='unfollow-button' (click)="unsubscribe(name)">{{followB}}</button></span>
-							<span *ngIf="showB"><button class='fa fa-edit edit-button' (click)="toEditFandom()"></button></span>
-							<span *ngIf="showB"><button class='fa fa-trash delete-button' (click)="deleteFandom()"></button></span>
+							<span *ngIf="showFollowB"><button class='btn-2 follow-button' (click)="subscribe(name)">{{followB}}</button></span>
+							<span *ngIf="showUnfollowB"><button class='btn-2 unfollow-button' (click)="unsubscribe(name)">{{followB}}</button></span>
+							<span *ngIf="showB"><button class='fa fa-edit btn-2 edit-button' (click)="toEditFandom()"></button></span>
+							<span *ngIf="showB"><button class='fa fa-trash btn-2 delete-button' (click)="deleteFandom()"></button></span>
 						</span>
 					</div>
 				</div>
