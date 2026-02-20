@@ -175,68 +175,35 @@ export class PostsComponent implements OnInit{
 	}
 
 	sortByPopularityImp() {
-		let arr = [];
-		for (let i = 0; i < this.posts.length; i++) {
-			arr.push([this.posts[i].numVotes, i]);
-		}
-		let sortedPosts = arr.sort((a, b) => b[0] - a[0]);
-		for (let i = 0; i < sortedPosts.length; i++) {
-			this.postNumVotes.push(this.posts[sortedPosts[i][1]].numVotes);
-			this.postTitles.push(this.posts[sortedPosts[i][1]].title);
-			this.postContents.push(this.posts[sortedPosts[i][1]].content);
-			this.userImages.push(this.posts[sortedPosts[i][1]].userImage);
-			if (this.posts[sortedPosts[i][1]].image != null) {
-				this.postImages.push(this.posts[sortedPosts[i][1]].image);
-			}
-			else {
-				this.postImages.push('');
-			}
-			this.postAuthors.push(this.posts[sortedPosts[i][1]].author);
-			this.postTags.push(this.posts[sortedPosts[i][1]].tags);
-			this.postNumComments.push(this.posts[sortedPosts[i][1]].comments.length);
-			if (this.posts[sortedPosts[i][1]].comments.length <= 1) { this.comments.push('comment'); }
-			else { this.comments.push('comments'); }
-			this.postTimestamps.push(this.timeDifference((new Date().getTime()), this.posts[sortedPosts[i][1]].timestamp));
-			this.postIds.push(this.posts[sortedPosts[i][1]]._id);
-			this.postFandoms.push(this.posts[sortedPosts[i][1]].fandom);
-		}
+		if (!this.posts || !Array.isArray(this.posts)) { return; }
+		this.posts = this.posts.slice().sort((a, b) => (b.numVotes || 0) - (a.numVotes || 0));
+
+		// let arr = [];
+		// for (let i = 0; i < this.posts.length; i++) {
+		// 	arr.push([this.posts[i].numVotes, i]);
+		// }
+		// let sortedPosts = arr.sort((a, b) => b[0] - a[0]);
+		// let newPosts = [];
+		// for (let i = 0; i < sortedPosts.length; i++) {
+		// 	newPosts.push(this.posts[sortedPosts[i][1]]);
+		// }
+		// this.posts = newPosts;
 	}
 
 	sortByMostRecentImp() {
-		let arr = [];
-		for (let i = 0; i < this.posts.length; i++) {
-			arr.push([this.posts[i].timestamp, i]);
-		}
-		let sortedPosts = arr.sort((a, b) => b[0] - a[0]);
-		for (let i = 0; i < sortedPosts.length; i++) {
-			this.postNumVotes.push(this.posts[sortedPosts[i][1]].numVotes);
-			this.postTitles.push(this.posts[sortedPosts[i][1]].title);
-			this.postContents.push(this.posts[sortedPosts[i][1]].content);
-			this.userImages.push(this.posts[sortedPosts[i][1]].userImage);
-			if (this.posts[sortedPosts[i][1]].image != null) {
-				this.postImages.push(this.posts[sortedPosts[i][1]].image);
-			}
-			else {
-				this.postImages.push('');
-			}
-			this.postAuthors.push(this.posts[sortedPosts[i][1]].author);
-			this.postTags.push(this.posts[sortedPosts[i][1]].tags);
-			this.postNumComments.push(this.posts[sortedPosts[i][1]].comments.length);
-			if (this.posts[sortedPosts[i][1]].comments.length <= 1) { this.comments.push('comment'); }
-			else { this.comments.push('comments'); }
-			this.postTimestamps.push(this.timeDifference((new Date().getTime()), this.posts[sortedPosts[i][1]].timestamp));
-			this.postIds.push(this.posts[sortedPosts[i][1]]._id);
-			this.postFandoms.push(this.posts[sortedPosts[i][1]].fandom);
-		}
+		if (!this.posts || !Array.isArray(this.posts)) { return; }
+		this.posts = this.posts.slice().sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 	}
 
 	sortByFandomImp(name, cond) {
+		this.postsByFandom = [];
+		if (!this.posts || !Array.isArray(this.posts)) { this.posts = []; return; }
 		for (let i = 0; i < this.posts.length; i++) {
 			if (this.posts[i].fandom == name) {
 				this.postsByFandom.push(this.posts[i]);
 			}
 		}
-		this.posts = this.postsByFandom;
+		this.posts = this.postsByFandom.slice();
 		if (cond == 'popularity') { this.sortByPopularityImp(); }
 		else { this.sortByMostRecentImp(); }
 	}
