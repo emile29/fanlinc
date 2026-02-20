@@ -184,6 +184,10 @@ export class CommentPgComponent implements OnInit{
 	}
 
 	sendComment(comment) {
+		if (!this.user) {
+			if (confirm('Sign in first!!')) { this.router.navigate(['/login']); }
+			return;
+		}
 		if (comment != '') {
 			this.postService.addComment(this.postId, comment, this.session.retrieve('logged-in')).subscribe(
 				res => {
@@ -205,6 +209,10 @@ export class CommentPgComponent implements OnInit{
 	}
 
 	sendReply(replyText: string, parentCommentId: string) {
+		if (!this.user) {
+			if (confirm('Sign in first!!')) { this.router.navigate(['/login']); }
+			return;
+		}
 		if (!replyText || replyText.trim() === '') { alert('Reply something first!!'); return; }
 		this.postService.addComment(this.postId, replyText, this.session.retrieve('logged-in'), parentCommentId).subscribe(
 			res => {

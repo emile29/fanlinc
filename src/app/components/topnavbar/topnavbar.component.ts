@@ -74,4 +74,26 @@ export class TopnavbarComponent implements OnInit {
       this.session.store('logged-in', '');
       this.router.navigate(['/login']).then(() => {window.location.reload(); });
     }
+
+    toNewPost() {
+      if (this.user != null && this.user != '') {
+        this.router.navigate(['/create-new-post']);
+      }
+      else {
+        if (confirm('Sign in first!!')) {
+          this.router.navigate(['/login']);
+        }
+      }
+    }
+
+    toNewFandom() {
+      if (this.user != null && this.user != '') {
+        this.router.navigate(['/create-new-fandom']);
+      }
+      else {
+        if (confirm('Sign in first!!')) {
+          this.router.navigate(['/login']);
+        }
+      }
+    }
 }
