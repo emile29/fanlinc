@@ -19,11 +19,19 @@
   .col1 {
     display: flex;
 
-    .fandom-img {
+    .fandom-img-container {
       height: 42px;
       width: 42px;
       border-radius: 50%;
       margin-right: 10px;
+      overflow: hidden;
+
+      .fandom-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
     }
 
     .fandom {
