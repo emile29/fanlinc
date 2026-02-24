@@ -5,8 +5,8 @@
         <img class="fandom-img" [src]="fandomImage" alt="Fandom Image">
       </div>
       <div>
-        <div class="fandom">f/{{ fandom }}</div>
-        <div class="author-name">{{ author }}</div>
+        <div class="fandom"><a [routerLink]="['/fandom-page']" [queryParams]="{fandom: fandom, sort: 'most-recent'}">f/{{ fandom }}</a></div>
+        <div class="author-name"><a [routerLink]="['/profile']" [queryParams]="{user: author}">{{ author }}</a></div>
       </div>
     </div>
     <div class="col2">

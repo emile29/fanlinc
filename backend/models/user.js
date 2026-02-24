@@ -24,9 +24,6 @@ const userSchema = new Schema({
 		subscribed: {
 			type: Array
 		},
-		friends : {
-			type : Array
-		},
 		bio : {
 			type : String
 		},
