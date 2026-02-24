@@ -1,8 +1,8 @@
 # Fanlinc
 A place where fans can come together and share their passion for their favourite fandoms.
 
-## Live Demo 
-https://fanlinc.herokuapp.com
+## Live Demo
+https://fanlinc-a48ae0a22c38.herokuapp.com (sometimes takes time to load, wait for a few seconds)
 
 ## Development
 
