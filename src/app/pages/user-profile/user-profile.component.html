@@ -9,6 +9,10 @@
 				<button class="btn cancel-changes-btn" (click)="cancelChanges()">CANCEL</button>
 			}
 		}
+		@else {
+			<button class="btn" id='friendB' *ngIf='isShow' (click)="addFriendClicked(username)">{{friendB}}</button>
+			<button class="btn" id='friendBUnfriend' *ngIf='isUnfriend' (click)="addFriendClicked(username)">{{friendB}}</button>
+		}
 	</div>
 
 	<div class="paper top-section">

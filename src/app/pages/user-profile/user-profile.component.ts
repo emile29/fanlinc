@@ -95,15 +95,29 @@ export class UserProfileComponent implements OnInit {
 						this.fandoms.push(res.body[0].profile.subscribed[i]);
 					}
 					if (!(res.body[0].profile.friends).includes(this.user)) {
-						if (this.route.snapshot.queryParamMap.get('req')) {
-							this.friendB = 'accept friend request';
-						}
-						else {
-							this.friendB = 'add friend';
-						}
+						this.userService.getUserByUsername(this.user).subscribe(
+							res1 => {
+								if (res1.body[0].profile.pending_friends.includes(userParam)) {
+									this.friendB = 'Accept Friend Request';
+								}
+								else if (!(res.body[0].profile.pending_friends.includes(this.user))) {
+									this.friendB = 'Add Friend';
+								}
+								else {
+									this.friendB = 'Friend Request Sent';
+									this.renderer.setProperty(document.querySelector('#friendB'), 'disabled', true);
+								}
+							}
+						)
+						// if (this.route.snapshot.queryParamMap.get('req')) {
+						// 	this.friendB = 'Accept Friend Request';
+						// }
+						// else {
+						// 	this.friendB = 'Add Friend';
+						// }
 					}
 					else {
-						this.friendB = 'unfriend';
+						this.friendB = 'Unfriend';
 						this.isShow = !this.isShow;
 						this.isUnfriend = !this.isUnfriend;
 					}
@@ -129,7 +143,7 @@ export class UserProfileComponent implements OnInit {
 
 	addFriendClicked(toBeAddedOrRemoved) {
 		if (this.user != null && this.user != '') {
-			if (this.friendB == 'add friend') {
+			if (this.friendB == 'Add Friend') {
 				this.friendB = 'Friend Request Sent';
 				this.renderer.setProperty(document.querySelector('#friendB'), 'disabled', true);
 				this.userService.addPending(toBeAddedOrRemoved, this.user).subscribe(res => {console.log(res.body); }, err => {console.log(err); });
@@ -142,7 +156,7 @@ export class UserProfileComponent implements OnInit {
 					err => {console.log(err);
 				});
 			}
-			else if (this.friendB == 'unfriend') {
+			else if (this.friendB == 'Unfriend') {
 				if (confirm('You are about to unfriend ' + toBeAddedOrRemoved)) {
 					this.userService.removeFriend(this.user, toBeAddedOrRemoved).subscribe(res => {console.log(res.body); }, err => {console.log(err); });
 					this.userService.removeFriend(toBeAddedOrRemoved, this.user).subscribe(res => {

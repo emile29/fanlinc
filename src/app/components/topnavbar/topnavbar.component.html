@@ -31,6 +31,19 @@
         <button class="btn-2" (click)="toNewPost()">Create Post</button>
         <button class="btn-2" (click)="toNewFandom()">Create Fandom</button>
 
+        <div class="notif-dropdown-container" *ngIf='isShow' display="dynamic" ngbDropdown>
+          <button class="notif-dropdown-button far fa-bell" ngbDropdownToggle>
+            <span class='num-pendings-info'> {{numPendings}}</span>
+          </button>
+          <div class="notif-dropdown-items-container" ngbDropdownMenu>
+            <p class='notif-dropdown-item' *ngFor="let friendUsername of pendingNames;">
+              <span>Friend Request from </span>
+              <a class='friend-username' (click)='toUserProfile(friendUsername)'>{{friendUsername}} </a>
+              <button class='accept-button' (click)='addFriend(friendUsername)'>Accept</button>
+            </p>
+          </div>
+        </div>
+
         <!-- user icon section that toggles a dropdown menu on click -->
         <div *ngIf="user" class="user-section" display="dynamic" ngbDropdown>
           <div class="user-icon" ngbDropdownToggle>
@@ -43,7 +56,7 @@
         </div>
 
         <div *ngIf="!user">
-          <a [routerLink]="['/login']" class="nav-link">Login</a>
+          <a [routerLink]="['/login']" class="nav-link login-btn">Login</a>
         </div>
    </div>
   </div>

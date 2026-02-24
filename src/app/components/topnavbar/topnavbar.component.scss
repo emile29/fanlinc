@@ -56,14 +56,91 @@
 
 	 .navbar-end {
 			width: 33%;
-        display: flex;
-        align-items: center;
-        gap: 15px;
+      display: flex;
+      align-items: center;
 		  justify-content: right;
+
+      // .notif-dropdown-items-container {
+      //   background-color: #fdebd0;
+      // }
+
+      .dropdown-toggle::after {
+        display: none;
+      }
+
+      .notif-dropdown-container {
+        margin-left: 12px;
+
+        .notif-dropdown-button {
+          // @extend %ext-common-button;
+          // background: $primary-color;
+          // margin-right: 15px;
+          // border-style: none;
+          // box-shadow: none;
+          color: #007bff;
+          background-color: white;
+          padding: 9px 8px;
+          border-radius: 50%;
+
+          @media screen and (max-width: 425px) {
+            margin-right: 5px;
+          }
+
+          &:hover {
+            color: black;
+            background-color: #F0F0F0;
+            // border-color: grey;
+          }
+
+          .num-pendings-info {
+            font-size: 10px;
+            margin-left: -1px;
+          }
+        }
+
+        .notif-dropdown-items-container {
+          width: max-content;
+
+          @media screen and (max-width: 768px) {
+            transform: translate(-30px, 32px);
+            min-width: 120px;
+          }
+
+          .notif-dropdown-item {
+            padding: 10px;
+            font-size: $base-font-size;
+            height: 30px;
+
+            .friend-username {
+              color: $third-color;
+
+              &:hover {
+                color: #333;
+              }
+            }
+
+            .accept-button {
+              color: white;
+              border-radius: 4px;
+              background: $secondary-color;
+              border-color: $secondary-color;
+              border-style: solid;
+              margin-left: 2px;
+              padding: 2px;
+              font-size: $base-font-size;
+
+              &:hover {
+                color: #333;
+              }
+            }
+          }
+        }
+      }
 
       .btn-2 {
         // border-color: white;
         padding: 5px 10px;
+        margin-left: 12px;
 
         // &:hover {
         //   color: black;
@@ -120,6 +197,10 @@
           &:hover {
             background-color: #f8f9fa;
           }
+        }
+
+        .login-btn {
+          margin-left: 12px;
         }
       }
   }
