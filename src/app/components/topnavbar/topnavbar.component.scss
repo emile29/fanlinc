@@ -15,10 +15,13 @@
     justify-content: space-between;
     align-items: center;
     height: 100%;
-	 width: 100%;
+	  width: 100%;
     padding: 0 20px;
    //  max-width: 1200px;
    //  margin: 0 auto;
+    @media screen and (max-width: 768px) {
+      padding: 0 12px;
+    }
 
     .navbar-brand {
 		width: 33%;
@@ -34,8 +37,17 @@
       }
     }
 
-    .navbar-menu {
-		width: 33%;
+    .menu-button {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 26px;
+      margin-right: 8px;
+      cursor: pointer;
+    }
+
+    .navbar-mid {
+		  width: 33%;
       display: flex;
       align-items: center;
       gap: 20px;
@@ -43,7 +55,7 @@
       .search-bar {
         display: flex;
         gap: 10px;
-		  width: 100%;
+		    width: 100%;
 
         input {
           padding: 8px 12px;
@@ -51,6 +63,21 @@
           border-radius: 4px;
           width: 100%;
         }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .menu-button {
+        display: inline-block;
+      }
+
+      .navbar-mid {
+        display: none;
+      }
+      .navbar-end {
+        margin-left: auto;
+
+        .btn-2 { display: none; }
       }
     }
 

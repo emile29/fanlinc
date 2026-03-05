@@ -75,13 +75,13 @@ export class FandomPageComponent implements OnInit {
 					this.mods = res.body[0].mods;
 					this.events = res.body[0].events;
 					this.image = res.body[0].image;
+					$('.fandom-image').css('backgroundImage', 'url(' + this.image + ')');
 					let img = new Image();
 					img.src = res.body[0].image;
 					this.id = res.body[0]._id;
 					this.userService.getUserByUsername(this.user).subscribe(
 						res => {
 							console.log(res.body);
-							$('.fandom-image').css('backgroundImage', 'url(' + this.image + ')');
 							if ((res.body[0].profile.subscribed).includes(this.name) && this.user != '' && this.user != null) {
 								this.followB = 'unfollow';
 								this.showFollowB = !this.showFollowB;

@@ -1,22 +1,33 @@
-<nav class="sidenav">
-  <div class="sidenav-content">
-    <!-- Add your sidenav content here -->
-    <ul class="nav-list">
-      <li class="nav-item">
-        <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          Home
-        </a>
-      </li>
-      <li class="nav-item">
-        <a [routerLink]="['/fandoms']" routerLinkActive="active">
-          Fandoms
-        </a>
-      </li>
-      <li class="nav-item">
-        <a [routerLink]="['/posts']" [queryParams]="{sort: 'most-recent'}" routerLinkActive="active">
-          Posts
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
+<div class="sidenav-wrapper">
+  <div class="sidenav-backdrop" *ngIf="isOpen" (click)="close()"></div>
+  <nav class="sidenav" [class.open]="isOpen">
+    <div class="sidenav-content">
+        <div class="search-bar sidenav-search">
+          <input type="text" placeholder="Search...">
+          <button type="button" class="btn">Search</button>
+        </div>
+      <!-- Add your sidenav content here -->
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/fandoms']" routerLinkActive="active">
+            Fandoms
+          </a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/posts']" [queryParams]="{sort: 'most-recent'}" routerLinkActive="active">
+            Posts
+          </a>
+        </li>
+      </ul>
+      <div class="create-actions">
+        <button class="btn-2" (click)="toNewPost()">Create Post</button>
+        <button class="btn-2" (click)="toNewFandom()">Create Fandom</button>
+      </div>
+    </div>
+  </nav>
+</div>

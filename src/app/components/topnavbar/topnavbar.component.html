@@ -1,12 +1,13 @@
 <nav class="navbar">
   <div class="navbar-content">
+    <button class="menu-button" aria-label="Open menu" (click)="toggleSidenav()">&#9776;</button>
     <div class="navbar-brand">
       <a [routerLink]="['/']">
         FanLinc
       </a>
     </div>
 
-    <div class="navbar-menu">
+    <div class="navbar-mid">
       <div class="search-bar">
         <input type="text" placeholder="Search...">
         <button type="button" class="btn">

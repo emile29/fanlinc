@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../user.service';
 import { Router } from '@angular/router';
 import { LocalStorageService } from 'ngx-webstorage';
+import { SidenavService } from '../../services/sidenav.service';
 
 @Component({
   selector: 'app-topnavbar',
@@ -17,7 +18,8 @@ export class TopnavbarComponent implements OnInit {
     isShow = false;
     isDropdownOpen = false;
 
-    constructor(private userService: UserService, private router: Router, private session: LocalStorageService) {}
+    constructor(private userService: UserService, private router: Router, private session: LocalStorageService,
+          private sidenavService: SidenavService) {}
 
     ngOnInit() {
       this.user = this.session.retrieve('logged-in');
@@ -95,5 +97,9 @@ export class TopnavbarComponent implements OnInit {
           this.router.navigate(['/login']);
         }
       }
+    }
+
+    toggleSidenav() {
+      this.sidenavService.toggle();
     }
 }
