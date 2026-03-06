@@ -15,6 +15,10 @@
 		padding: 18px 20px 20px 20px;
 		// background-color: white;
 
+		@media screen and (max-width: 768px) {
+			padding: 10px 3% 0;
+		}
+
 		.top-section-container {
 			// max-height: 300px;
 			// display: flex;
