@@ -7,18 +7,20 @@
 	padding: 5px 20% 0;
 
 	@media screen and (max-width: 768px) {
-		padding: 30px 5% 0;
+		padding: 10px 5% 0;
 		font-size: $base-font-size - 1px;
 	}
 
 	@media screen and (max-width: 425px) {
-		padding: 30px 3% 0;
+		padding: 10px 3% 0;
 		font-size: $base-font-size - 1px;
 	}
 
 	.edit-row {
 		margin-bottom: 12px;
-		text-align: right;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
 
 		.btn, .btn-2 {
 			font-size: 13px;
@@ -46,15 +48,24 @@
 			margin-right: 40px;
 			padding: 10px 10px 10px 20px;
 
+			@media screen and (max-width: 768px) {
+				margin-right: 10px;
+				padding: 0;
+			}
+
 			.profile-image-container {
 				position: relative;
 				display: inline-block;
 
 				img {
-					height: 130px;
+					// height: 130px;
 					width: 130px;
 					border-radius: 50%;
 					display: block;
+
+					@media screen and (max-width: 768px) {
+						width: 80px;
+					}
 				}
 
 				.image-overlay {
@@ -96,9 +107,17 @@
 			width: 100%;
 			padding: 10px;
 
+			@media screen and (max-width: 768px) {
+				padding-top: 0;
+			}
+
 			.username {
 				font-size: 30px;
 				font-weight: bold;
+
+				@media screen and (max-width: 768px) {
+					font-size: 24px;
+				}
 			}
 
 			.bio-box {
@@ -136,10 +155,20 @@
 		display: flex;
 		align-items: flex-start;
 
+		@media screen and (max-width: 768px) {
+			display: block;
+		}
+
 		&-left {
 			// @extend %common-paper;
 			width: 35%;
 			margin-right: 2%;
+
+			@media screen and (max-width: 768px) {
+				width: 100%;
+				margin-right: 0;
+				margin-bottom: 10px;
+			}
 
 			.interests-container {
 				padding: 10px 20px 15px;
@@ -196,6 +225,10 @@
 		&-right {
 			// @extend %common-paper;
 			width: 63%;
+
+			@media screen and (max-width: 768px) {
+				width: 100%;
+			}
 
 			a:hover {
 				color: $link-hover-color;
