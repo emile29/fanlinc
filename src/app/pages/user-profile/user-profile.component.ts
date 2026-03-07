@@ -37,6 +37,9 @@ export class UserProfileComponent implements OnInit {
 	constructor(private renderer: Renderer2, private userService: UserService, private postService: PostService,
 			private route: ActivatedRoute, private router: Router, private session: LocalStorageService) { }
 
+	showImageDialog = false;
+	newImageUrl = '';
+
 	@HostListener('window:popstate', ['$event'])
 	onPopState(event) {
 		window.location.reload();
@@ -241,7 +244,7 @@ export class UserProfileComponent implements OnInit {
 		this.router.navigate(['/profile'], { queryParams: { user: this.username } }).then(() => {window.location.reload(); });
 	}
 
-	changeProfilePicture() {
+	changeProfilePicture_old() {
 		// Create a file input element
 		const fileInput = document.createElement('input');
 		fileInput.type = 'file';
@@ -266,5 +269,26 @@ export class UserProfileComponent implements OnInit {
 
 		// Trigger the file input click
 		fileInput.click();
+	}
+
+	changeProfilePicture() {
+		// Open URL input dialog instead of file upload
+		this.newImageUrl = this.imagelink || '';
+		this.showImageDialog = true;
+	}
+
+	closeImageDialog() {
+		this.showImageDialog = false;
+	}
+
+	saveImageFromUrl() {
+		if (this.newImageUrl && (this.newImageUrl.startsWith('http://') || this.newImageUrl.startsWith('https://') || this.newImageUrl.startsWith('data:')) ) {
+			this.imagelink = this.newImageUrl;
+			this.showImageDialog = false;
+		} else {
+			// simple fallback: still set and close (could add validation UI later)
+			this.imagelink = this.newImageUrl;
+			this.showImageDialog = false;
+		}
 	}
 }

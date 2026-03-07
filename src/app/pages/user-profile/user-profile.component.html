@@ -1,4 +1,19 @@
 <div class='page-container'>
+	<div class="image-dialog-overlay" *ngIf="showImageDialog">
+		<div class="image-dialog">
+			<div class="dialog-header">Set Profile Image URL</div>
+			<div class="dialog-body">
+				<input placeholder="Enter image URL or data URI" [(ngModel)]="newImageUrl">
+				<div class="preview">
+					<img *ngIf="newImageUrl" [src]="newImageUrl" />
+				</div>
+			</div>
+			<div class="dialog-actions">
+				<button class="btn" (click)="saveImageFromUrl()">Save</button>
+				<button class="btn" (click)="closeImageDialog()">Cancel</button>
+			</div>
+		</div>
+	</div>
 	<div class="edit-row">
 		@if (user == username) {
 			<button class="btn-2 change-password-btn" (click)="redirectToChangePassword()">CHANGE PASSWORD</button>
