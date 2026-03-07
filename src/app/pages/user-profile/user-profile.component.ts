@@ -86,6 +86,7 @@ export class UserProfileComponent implements OnInit {
 					this.password = res.body[0].password;
 					this.imagelink = res.body[0].image;
 					this.bio = res.body[0].profile.bio;
+					this.subscribed = res.body[0].profile.subscribed;
 					// this.level = res.body[0].profile.level;
 					// this.type = res.body[0].profile.type;
 					for (let i = 0; i < res.body[0].profile.interests.length; i++) {
